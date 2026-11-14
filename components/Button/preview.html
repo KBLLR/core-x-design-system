@@ -1,0 +1,48 @@
+<!-- @dsCard group="Components" height=240 width=700 subtitle="Primary · ghost · danger" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Button</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;min-height:240px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:22px 26px}
+.spec{display:flex;flex-direction:column;gap:14px}
+.spec-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.spec-lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg3);text-transform:uppercase;letter-spacing:0.1em}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Button } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+function demo(){
+  const send = h('svg',{viewBox:'0 0 24 24',width:13,height:13,fill:'none',stroke:'currentColor',strokeWidth:1.5},h('path',{d:'M4 12L20 4l-5 16-3-7-8-1z'}));
+  return h('div',{className:'spec'},
+    h('div',{className:'spec-lbl'},'variants'),
+    h('div',{className:'spec-row'},
+      h(Button,{variant:'primary',icon:send},'Confirm & execute'),
+      h(Button,{variant:'ghost'},'Build plan'),
+      h(Button,{variant:'danger'},'Purge')
+    ),
+    h('div',{className:'spec-lbl'},'sizes'),
+    h('div',{className:'spec-row'},
+      h(Button,{size:'sm'},'small'),
+      h(Button,{size:'md'},'medium'),
+      h(Button,{size:'lg'},'large')
+    ),
+    h('div',{className:'spec-lbl'},'disabled'),
+    h('div',{className:'spec-row'},
+      h(Button,{variant:'primary',disabled:true},'Planning...'),
+      h(Button,{disabled:true},'Unavailable')
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

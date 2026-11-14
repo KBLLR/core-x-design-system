@@ -1,0 +1,68 @@
+<!-- @dsCard group="Ecosystem" viewport="1000x800" name="Entity loaders" subtitle="23 entities · one motion metaphor each · driven by canonical accent" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Entity loaders</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:#0a0c0b;width:1000px;min-height:800px}
+#root{padding:26px 28px}
+h1{font-family:var(--font-heading);font-weight:600;font-size:19px;letter-spacing:.06em;color:#fff;text-transform:uppercase}
+.sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:24px}
+.sub b{color:#5cf08c}
+.gh{display:flex;align-items:center;gap:10px;padding-bottom:9px;margin-bottom:14px;border-bottom:1px dashed rgba(255,255,255,.16);font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.gh .bar{width:4px;height:13px}
+.gh .rule{flex:1;border-top:1px dashed rgba(255,255,255,.08)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:30px}
+.card{position:relative;border:1px dashed rgba(255,255,255,.16);background:rgba(255,255,255,.02);padding:16px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;transition:border-color .15s,background .15s}
+.card:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.04)}
+.no{position:absolute;top:5px;left:7px;font-family:var(--font-mono);font-size:8px;letter-spacing:.14em;color:rgba(255,255,255,.3)}
+.sw{position:absolute;top:5px;right:7px;width:7px;height:7px;border-radius:50%}
+.stage{width:72px;height:72px;display:grid;place-items:center;border:1px dashed rgba(255,255,255,.08);background:rgba(0,0,0,.25)}
+.nm{font-family:var(--font-heading);font-weight:600;font-size:11.5px;color:#fff;text-align:center;line-height:1.2}
+.mt{font-family:var(--font-mono);font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.34);font-style:italic;text-align:center}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body data-theme="vectra">
+<div id="root"></div>
+<script>
+// The bundle recompiles at end of turn; if this page is opened against an older
+// build, say so plainly instead of white-screening on an undefined export.
+function __requireExports(ns, names){
+  const missing = names.filter(n => !ns || ns[n] === undefined);
+  if (!missing.length) return true;
+  document.getElementById('root').innerHTML =
+    '<div style="padding:40px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.7;color:#8a3030">'
+    + '<b style="display:block;font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">stale bundle</b>'
+    + '_ds_bundle.js?v=3 is missing: <b>' + missing.join(', ') + '</b><br>'
+    + 'The design-system bundle recompiles at the end of a turn. Reload this page once it has.</div>';
+  return false;
+}
+const __ns = window.KBLLRCoreXDesignSystem_019e2e;
+if (!__requireExports(__ns, ['EntityLoader','CX_ENTITIES'])) throw new Error('stale');
+const { EntityLoader, CX_ENTITIES } = __ns;
+const h = React.createElement;
+const card = e => h('div',{key:e.id,className:'card'},
+  h('span',{className:'no'},e.code),
+  h('span',{className:'sw',style:{background:e.accent,boxShadow:'0 0 4px '+e.accent}}),
+  h('div',{className:'stage'}, h(EntityLoader,{entity:e,size:56})),
+  h('div',null, h('div',{className:'nm'},e.name), h('div',{className:'mt'},'// '+e.metaphor)));
+function demo(){
+  const inst=CX_ENTITIES.filter(e=>e.tier==='institution');
+  const hs=CX_ENTITIES.filter(e=>e.tier==='house');
+  return h('div',null,
+    h('h1',null,'Entity loaders'),
+    h('p',{className:'sub'},'23 entities · ',h('b',null,'one motion metaphor per entity'),' · driven by canonical accent'),
+    h('div',{className:'gh',style:{color:'#5cf08c'}}, h('span',{className:'bar',style:{background:'#5cf08c'}}), h('span',{style:{color:'#fff'}},'Institutions'), h('span',{style:{color:'rgba(255,255,255,.4)'}},'· 8'), h('span',{className:'rule'})),
+    h('div',{className:'grid'}, inst.map(card)),
+    h('div',{className:'gh',style:{color:'#ffb547'}}, h('span',{className:'bar',style:{background:'#ffb547'}}), h('span',{style:{color:'#fff'}},'Houses'), h('span',{style:{color:'rgba(255,255,255,.4)'}},'· 15'), h('span',{className:'rule'})),
+    h('div',{className:'grid'}, hs.map(card)));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

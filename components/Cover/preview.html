@@ -1,0 +1,73 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400&display=swap">
+<style>
+html,body{margin:0;background:var(--bg)}
+.cover{position:relative;width:960px;height:288px;overflow:hidden;background:var(--bg)}
+.cover svg{position:absolute;left:0;top:0;display:block}
+.ink{fill:var(--fg1)}
+.accent{fill:var(--accent)}
+.tint{fill:var(--border-light)}
+.signal{fill:var(--status-green)}
+.mark{fill:none;stroke:var(--bg);stroke-width:1.5}
+.words{position:absolute;left:var(--space-10);right:var(--space-10);top:144px}
+.name{margin:0;font-family:var(--font-heading);font-weight:700;font-size:56px;line-height:.95;letter-spacing:0;color:var(--fg1);white-space:nowrap}
+.tag{margin:var(--space-6) 0 0;font-family:var(--font-body);font-size:14px;line-height:1.4;color:var(--fg1);max-width:440px}
+</style>
+</head>
+<body>
+<div class="cover">
+<!--
+blocks: fg1 384x112 + 160x112, accent 224x112, border-light 128x112, status-green 64x112 — one flush band, 39% of the cover
+arrangement: a strip of unequal bands across the top, square-cut, bleeding off three edges; the name sits under it (top-band skeleton: the name is too wide for the 440px zone at 64px)
+pattern: a plus grid, 30 units in the ground colour — "precise, technical, mono": the README's blueprint grid and operator-console register
+scales: band widths and height are multiples of space-10 (32px) and space-7 (16px); pitch 64px = 2 x space-10; radius 0 (the system has no rounded corners)
+-->
+<svg width="960" height="112" viewBox="0 0 960 112" aria-hidden="true">
+<rect class="ink" x="0" y="0" width="384" height="112"/>
+<rect class="accent" x="384" y="0" width="224" height="112"/>
+<rect class="tint" x="608" y="0" width="128" height="112"/>
+<rect class="signal" x="736" y="0" width="64" height="112"/>
+<rect class="ink" x="800" y="0" width="160" height="112"/>
+<path class="mark" d="M26 24h12M32 18v12"/>
+<path class="mark" d="M90 24h12M96 18v12"/>
+<path class="mark" d="M154 24h12M160 18v12"/>
+<path class="mark" d="M218 24h12M224 18v12"/>
+<path class="mark" d="M282 24h12M288 18v12"/>
+<path class="mark" d="M346 24h12M352 18v12"/>
+<path class="mark" d="M410 24h12M416 18v12"/>
+<path class="mark" d="M474 24h12M480 18v12"/>
+<path class="mark" d="M538 24h12M544 18v12"/>
+<path class="mark" d="M602 24h12M608 18v12"/>
+<path class="mark" d="M666 24h12M672 18v12"/>
+<path class="mark" d="M730 24h12M736 18v12"/>
+<path class="mark" d="M794 24h12M800 18v12"/>
+<path class="mark" d="M858 24h12M864 18v12"/>
+<path class="mark" d="M922 24h12M928 18v12"/>
+<path class="mark" d="M26 88h12M32 82v12"/>
+<path class="mark" d="M90 88h12M96 82v12"/>
+<path class="mark" d="M154 88h12M160 82v12"/>
+<path class="mark" d="M218 88h12M224 82v12"/>
+<path class="mark" d="M282 88h12M288 82v12"/>
+<path class="mark" d="M346 88h12M352 82v12"/>
+<path class="mark" d="M410 88h12M416 82v12"/>
+<path class="mark" d="M474 88h12M480 82v12"/>
+<path class="mark" d="M538 88h12M544 82v12"/>
+<path class="mark" d="M602 88h12M608 82v12"/>
+<path class="mark" d="M666 88h12M672 82v12"/>
+<path class="mark" d="M730 88h12M736 82v12"/>
+<path class="mark" d="M794 88h12M800 82v12"/>
+<path class="mark" d="M858 88h12M864 82v12"/>
+<path class="mark" d="M922 88h12M928 82v12"/>
+</svg>
+<div class="words">
+<p class="name">KBLLR Core-X Design System</p>
+<p class="tag">Brutalist, warm-beige, dashed borders everywhere.</p>
+</div>
+</div>
+</body>
+</html>

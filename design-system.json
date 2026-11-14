@@ -1,0 +1,90 @@
+{
+  "v": 3,
+  "assetGroups": {
+    "ecosystem": {
+      "files": {},
+      "name": "ecosystem",
+      "order": []
+    },
+    "icons": {
+      "files": {},
+      "name": "icons",
+      "order": []
+    },
+    "logos": {
+      "files": {},
+      "name": "logos",
+      "order": []
+    },
+    "notes": {
+      "files": {},
+      "name": "notes",
+      "order": []
+    },
+    "patterns": {
+      "files": {},
+      "name": "patterns",
+      "order": []
+    }
+  },
+  "blobs": {},
+  "createdOnFiles": {
+    "at": "2026-11-11T20:26:35.968Z",
+    "v": 1
+  },
+  "docs": {
+    "readme": "project/README.md",
+    "sections": [
+      "project/agents/core-x-designer.md",
+      "project/skills/core-x-components/SKILL.md",
+      "project/skills/core-x-content/SKILL.md",
+      "project/skills/core-x-ecosystem/SKILL.md",
+      "project/skills/core-x-foundations/SKILL.md",
+      "project/skills/core-x-imagery/SKILL.md",
+      "project/skills/core-x-motion/SKILL.md",
+      "project/skills/core-x-panels/SKILL.md",
+      "project/skills/core-x-review/SKILL.md",
+      "project/starter/core-x-app/README.md",
+      "project/starter/core-x-app/agents/core-x-designer.md",
+      "project/starter/core-x-app/ds/assets/logos/README.md",
+      "project/starter/core-x-app/skills/core-x-components/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-content/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-ecosystem/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-foundations/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-imagery/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-motion/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-panels/SKILL.md",
+      "project/starter/core-x-app/skills/core-x-review/SKILL.md",
+      "project/starter/core-x-app/skills/kbllr-core-x-design/SKILL.md",
+      "project/ui_kits/launcher/README.md",
+      "project/ui_kits/runtime/README.md"
+    ]
+  },
+  "groups": [
+    "ecosystem",
+    "icons",
+    "logos",
+    "notes",
+    "patterns"
+  ],
+  "lastChange": {
+    "by": "David",
+    "at": "2026-11-13T06:20:00Z",
+    "via": "Claude",
+    "note": "Glass goes rounded: capsule controls, radius-glass surfaces; content stays square."
+  },
+  "layout": "files",
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18"
+    },
+    {
+      "name": "react-dom",
+      "version": "18"
+    }
+  ],
+  "namespace": "KBLLRCoreXDesignSystem_019e2e",
+  "sections": {},
+  "title": "KBLLR Core-X Design System"
+}

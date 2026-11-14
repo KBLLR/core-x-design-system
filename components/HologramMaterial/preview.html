@@ -1,0 +1,48 @@
+<!-- @dsCard group="Materials" height=260 width=760 subtitle="Fresnel rim + travelling scanlines · additive" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HologramMaterial</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:var(--bg)}
+.stage{position:relative;width:760px;min-height:260px;background:var(--bg);color:var(--fg1);overflow:hidden;box-sizing:border-box;padding:22px 26px}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+.stage>*{position:relative}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg2);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px;margin-bottom:18px}
+.scene{position:relative;background:var(--bg);display:flex;align-items:center;gap:14px;padding:18px;overflow:hidden}
+.scene i{position:absolute;display:block}
+.scene .b1{left:0;top:0;width:38%;height:100%;background:var(--fg1)}
+.scene .b2{left:38%;top:0;width:24%;height:60%;background:var(--accent)}
+.scene .b3{left:62%;top:40%;width:18%;height:60%;background:var(--status-green)}
+.scene .b4{left:80%;top:0;width:20%;height:100%;background:var(--status-blue)}
+.scene>:not(i){position:relative}
+.sw{display:flex;flex-direction:column;gap:8px;align-items:center}.sw canvas{width:150px;height:150px;display:block;background:#000}.sw span{font-family:var(--font-mono);font-size:10px;color:var(--fg2)}.probe{position:absolute;width:0;height:0;overflow:hidden}</style>
+</head>
+<body>
+<div class="stage" data-theme="vectra"><div id="root"></div></div>
+<script>
+const NS = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+// The fragment maths is HologramMaterial.ts, unchanged; the sphere is drawn as an impostor so no 3D library is needed.
+const FRAG=`precision highp float;uniform float time;uniform vec3 color;uniform float opacity;uniform vec3 rimColor;uniform float rimPower;uniform float scanlineScale;uniform float scanlineIntensity;varying vec2 vUv;
+void main(){vec2 p=vUv*2.0-1.0;float r2=dot(p,p);if(r2>1.0)discard;vec3 normal=vec3(p,sqrt(1.0-r2));vec3 viewDir=vec3(0.0,0.0,1.0);float vElevation=p.y;
+float rim=1.0-max(dot(viewDir,normal),0.0);rim=pow(rim,rimPower);
+float scanline=sin((vElevation*0.5+time*0.2)*scanlineScale)*0.5+0.5;scanline=mix(1.0,scanline,scanlineIntensity);
+vec3 finalColor=color+rim*rimColor;finalColor*=scanline;float a=opacity*(rim+0.2);gl_FragColor=vec4(finalColor*a,a);}`;
+const VERT='attribute vec2 a;varying vec2 vUv;void main(){vUv=a*0.5+0.5;gl_Position=vec4(a,0.0,1.0);}';
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function rgb(css){const e=document.createElement('i');e.style.color=css;document.querySelector('.probe').appendChild(e);const m=getComputedStyle(e).color.match(/[0-9.]+/g).map(Number);e.remove();return [m[0]/255,m[1]/255,m[2]/255];}
+function draw(cv,color,opts){const gl=cv.getContext('webgl',{premultipliedAlpha:true});if(!gl){cv.replaceWith(Object.assign(document.createElement('span'),{textContent:'webgl unavailable'}));return;}
+ const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;};const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,VERT));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(pr);gl.useProgram(pr);
+ gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);const l=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+ const u=(n)=>gl.getUniformLocation(pr,n);gl.uniform3fv(u('color'),color);gl.uniform1f(u('opacity'),1.0);gl.uniform3fv(u('rimColor'),[1,1,1]);gl.uniform1f(u('rimPower'),opts.rimPower||2.0);gl.uniform1f(u('scanlineScale'),opts.scanlineScale||50.0);gl.uniform1f(u('scanlineIntensity'),opts.scanlineIntensity||0.5);
+ gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.clearColor(0,0,0,1);
+ const frame=(t)=>{gl.uniform1f(u('time'),still?0:t/1000);gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(!still)requestAnimationFrame(frame);};frame(0);}
+const root=document.getElementById('root');root.innerHTML='<div class="probe"></div><div class="lbl">source default · entity accent · theme accent · rimPower 4, scanlineScale 20</div><div class="row"></div>';
+[['#00d1ff (source default)','#00d1ff',{}],['corex-campus','var(--corex-campus)',{}],['accent','var(--accent)',{}],['corex-vega · soft','var(--corex-vega)',{rimPower:4,scanlineScale:20}]].forEach(([t,c,o])=>{const d=document.createElement('div');d.className='sw';const cv=document.createElement('canvas');cv.width=400;cv.height=400;const s=document.createElement('span');s.textContent=t;d.append(cv,s);root.querySelector('.row').appendChild(d);draw(cv,rgb(c),o);});
+</script>
+</body>
+</html>

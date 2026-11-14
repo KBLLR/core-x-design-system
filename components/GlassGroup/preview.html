@@ -1,0 +1,38 @@
+<!-- @dsCard group="Liquid Glass" height=280 width=700 subtitle="One glass shape, several controls" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GlassGroup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:var(--bg)}
+.stage{position:relative;width:700px;min-height:280px;background:var(--bg);color:var(--fg1);overflow:hidden;box-sizing:border-box;padding:22px 26px}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+.stage>*{position:relative}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg2);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px;margin-bottom:18px}
+.scene{position:relative;background:var(--bg);display:flex;align-items:center;gap:14px;padding:18px;overflow:hidden}
+.scene i{position:absolute;display:block}
+.scene .b1{left:0;top:0;width:38%;height:100%;background:var(--fg1)}
+.scene .b2{left:38%;top:0;width:24%;height:60%;background:var(--accent)}
+.scene .b3{left:62%;top:40%;width:18%;height:60%;background:var(--status-green)}
+.scene .b4{left:80%;top:0;width:20%;height:100%;background:var(--status-blue)}
+.scene>:not(i){position:relative}
+.seg{background:none;border:0;color:var(--fg1);font-family:var(--font-heading);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;cursor:pointer}.seg[aria-pressed=true]{background:var(--bg-elevated)}</style>
+</head>
+<body>
+<div class="stage" data-theme="macos"><div id="root"></div></div>
+<script>
+const NS = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const scene=(...kids)=>h('div',{className:'scene'},h('i',{className:'b1'}),h('i',{className:'b2'}),h('i',{className:'b3'}),h('i',{className:'b4'}),...kids);const { GlassGroup } = NS;
+function Demo(){const [m,setM]=React.useState('Conversations');
+ const seg=(t)=>h('button',{key:t,className:'seg',type:'button','aria-pressed':m===t,onClick:()=>setM(t)},t);
+ return h('div',null,h('div',{className:'lbl'},'segmented · sidebar mode'),scene(h(GlassGroup,{label:'Sidebar mode'},['Conversations','Missions'].map(seg))),
+  h('div',{style:{height:18}}),h('div',{className:'lbl'},'toolbar group · vertical group'),
+  scene(h(GlassGroup,{label:'Thread actions'},['Handoff','Profile','Stop response'].map((t)=>h('button',{key:t,className:'seg',type:'button'},t))),h(GlassGroup,{vertical:true,label:'Zoom'},['+','−'].map((t)=>h('button',{key:t,className:'seg',type:'button'},t)))));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
+</body>
+</html>

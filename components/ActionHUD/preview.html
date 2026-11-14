@@ -1,0 +1,35 @@
+<!-- @dsCard group="Assistant HUD" height=540 width=900 subtitle="Status · approval gate · runtime and privacy badges" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ActionHUD</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:var(--bg)}
+.stage{position:relative;width:900px;min-height:540px;background:var(--bg);color:var(--fg1);overflow:hidden;box-sizing:border-box;padding:22px 26px}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+.stage>*{position:relative}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg2);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px;margin-bottom:18px}
+.scene{position:relative;background:var(--bg);display:flex;align-items:center;gap:14px;padding:18px;overflow:hidden}
+.scene i{position:absolute;display:block}
+.scene .b1{left:0;top:0;width:38%;height:100%;background:var(--fg1)}
+.scene .b2{left:38%;top:0;width:24%;height:60%;background:var(--accent)}
+.scene .b3{left:62%;top:40%;width:18%;height:60%;background:var(--status-green)}
+.scene .b4{left:80%;top:0;width:20%;height:100%;background:var(--status-blue)}
+.scene>:not(i){position:relative}
+.row{align-items:flex-start}</style>
+</head>
+<body>
+<div class="stage" data-theme="macos"><div id="root"></div></div>
+<script>
+const NS = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const { ActionHUD } = NS;
+ReactDOM.createRoot(document.getElementById('root')).render(h('div',{className:'row'},
+ h(ActionHUD,{state:'waiting-for-approval',runtime:{status:'processing',hardware:'Local GPU',model:'mlx::ministral-8b'},privacy:{mode:'local-only',redacted:true},output:'Plan ready: 1 action.',proposal:{name:'calendar.create_event',arguments:{title:'Design review',start:'2026-11-14T10:00',room:'Makerspace'}}}),
+ h(ActionHUD,{state:'streaming',runtime:{status:'streaming',hardware:'Local GPU'},privacy:{mode:'remote-permitted'},output:'Collecting the open missions for this house'})));
+</script>
+</body>
+</html>

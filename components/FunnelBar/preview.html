@@ -1,0 +1,33 @@
+<!-- @dsCard group="Data" height=300 width=700 subtitle="Done vs waiting · hatched outstanding" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Funnel bar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;overflow-x:hidden}
+#root{padding:22px 26px}
+.panel{border:1px dashed var(--border-light);background:var(--mat-2-fill);padding:14px}
+h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const NSX = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+const { FunnelBar } = NSX;
+function demo(){
+  const S=[{label:'imported',done:412,waiting:0},{label:'normalised',done:388,waiting:24},{label:'QA passed',done:301,waiting:87},{label:'face review',done:142,waiting:159,optional:true},{label:'controller ready',done:96,waiting:205}];
+  return h('div',null,
+    h('h4',null,'stages · scaled to the largest total'),
+    h('div',{className:'panel'}, h(FunnelBar,{stages:S})),
+    h('h4',{style:{marginTop:16}},'no totals · label width 96'),
+    h('div',{className:'panel'}, h(FunnelBar,{stages:S.slice(0,3),showTotals:false,labelWidth:96})));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

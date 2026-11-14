@@ -1,0 +1,49 @@
+<!-- @dsCard group="Components" height=220 width=700 subtitle="Dashed pill · tone-coded" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Badge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;min-height:220px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:22px 26px}
+.spec{display:flex;flex-direction:column;gap:14px}
+.spec-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.spec-lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg3);text-transform:uppercase;letter-spacing:0.1em}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Badge } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+function demo(){
+  return h('div',{className:'spec'},
+    h('div',{className:'spec-lbl'},'tones · mono'),
+    h('div',{className:'spec-row'},
+      h(Badge,{tone:'up',dot:true},'ready'),
+      h(Badge,{tone:'warn',dot:true},'pending'),
+      h(Badge,{tone:'down',dot:true},'offline'),
+      h(Badge,{tone:'info',dot:true},'debug'),
+      h(Badge,{tone:'neutral'},'mlx::ministral-8b')
+    ),
+    h('div',{className:'spec-lbl'},'heading case'),
+    h('div',{className:'spec-row'},
+      h(Badge,{mono:false},'tier full'),
+      h(Badge,{mono:false,tone:'info'},'restart'),
+      h(Badge,{dotted:true,mono:false},'ext')
+    ),
+    h('div',{className:'spec-lbl'},'solid · one per screen'),
+    h('div',{className:'spec-row'},
+      h(Badge,{solid:true,mono:false},'live'),
+      h(Badge,{solid:true,tone:'down',mono:false},'error')
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

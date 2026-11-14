@@ -1,0 +1,63 @@
+<!-- @dsCard group="Components" viewport="960x620" name="Card" subtitle="action · stat · media · dense × 4 material tiers" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Card</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:960px;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:24px 28px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Card } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+function demo(){
+  return h('div',null,
+    h('div',{className:'overline',style:{marginBottom:12}},'action · the module card'),
+    h('div',{className:'g4'},
+      h(Card,{variant:'action',icon:'mode-voice',title:'Voice',code:'VOX',desc:'Hands-free cockpit — STT → LLM → TTS.',onClick:()=>{}}),
+      h(Card,{variant:'action',icon:'mode-orchestrator',title:'Orchestrator',code:'ORC',desc:'Plan-first execution with lane selection.',tag:'new',tagTone:'new',onClick:()=>{}}),
+      h(Card,{variant:'action',icon:'mode-disk',title:'Disk Ops',code:'DSK',desc:'Reclaim candidates, dry-run first.',tag:'tool',onClick:()=>{}}),
+      h(Card,{variant:'action',icon:'external',title:'Zed Cockpit',code:'ZED',desc:'Hands off to the external editor.',tag:'ext',external:true,onClick:()=>{}})
+    ),
+    h('div',{className:'overline',style:{marginBottom:12}},'stat · tabular, never jitters'),
+    h('div',{className:'g4'},
+      h(Card,{variant:'stat',tier:'flush',title:'events / s',value:'8 932'}),
+      h(Card,{variant:'stat',tier:'flush',title:'kv cache',value:'1.4',unit:'GB'}),
+      h(Card,{variant:'stat',tier:'flush',title:'svc up',value:'10/11',desc:'said:8096 restarting'}),
+      h(Card,{variant:'stat',tier:'flush',title:'throughput',value:'128.4',unit:'tok/s'})
+    ),
+    h('div',{className:'overline',style:{marginBottom:12}},'media · tier: floating'),
+    h('div',{className:'g3'},
+      h(Card,{variant:'media',tier:'floating',title:'warehouse-r3',code:'GLB',media:'184 320 tris',meta:'vault://core-x/scenes',onClick:()=>{}}),
+      h(Card,{variant:'media',tier:'floating',title:'Reclaim plan',code:'MD',media:'1.4 KB · 6 sources',meta:'plan_a04f',onClick:()=>{}}),
+      h(Card,{variant:'media',tier:'floating',title:'Narration',code:'WAV',media:'01:24 · kokoro-en',meta:'session_2b',onClick:()=>{}})
+    ),
+    h('div',{className:'overline',style:{marginBottom:12}},'dense · long lists · tier: overlay'),
+    h('div',{className:'g2'},
+      h('div',{style:{display:'flex',flexDirection:'column',gap:6}},
+        h(Card,{variant:'dense',tier:'overlay',dense:true,icon:'render-md',title:'Reclaim plan',code:'1.4 KB'}),
+        h(Card,{variant:'dense',tier:'overlay',dense:true,icon:'render-code',title:'reclaim.ts',code:'12 LN'}),
+        h(Card,{variant:'dense',tier:'overlay',dense:true,icon:'render-audio',title:'Narration',code:'1:24'})),
+      h('div',{style:{display:'flex',flexDirection:'column',gap:6}},
+        h(Card,{variant:'dense',tier:'raised',dense:true,icon:'ok',title:'rag.search',desc:'12 artifacts · 3 stale'}),
+        h(Card,{variant:'dense',tier:'raised',dense:true,icon:'ok',title:'llm.reason',desc:'summary · 6 cited'}),
+        h(Card,{variant:'dense',tier:'raised',dense:true,icon:'clock',title:'disk.dry-run',desc:'staged · no mutations',disabled:true}))
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

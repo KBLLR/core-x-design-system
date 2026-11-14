@@ -1,0 +1,136 @@
+// CoreXGlass.swift — the Core-X native layer for SwiftUI. (Stored as .swift.txt: the design system cannot serve .swift. Rename on copy.)
+//
+// STATUS: reference, not shipped. Written against Apple's documentation
+// ("Applying Liquid Glass to custom views", GlassEffectContainer); NOT compiled.
+// Build it with Xcode 26 before relying on any line. Nothing in corex-chat-mac uses it yet.
+//
+// Liquid Glass needs macOS 26. CoreXChat targets macOS 14, so every glass call sits
+// behind `#available(macOS 26.0, *)` with a material fallback, and behind
+// `#if compiler(>=6.2)` so the file still builds with an SDK that has no glass API.
+
+import SwiftUI
+
+// MARK: - Tokens (MACOS theme). Same values as tokens.json; change them there first.
+
+extension Color {
+    static let cxBg       = Color(red: 0x11/255, green: 0x11/255, blue: 0x10/255)   // bg          (was vBg)
+    static let cxFg       = Color(red: 0xe6/255, green: 0xe4/255, blue: 0xdf/255)   // fg1         (was vFg)
+    static let cxSurface  = Color(red: 0x1a/255, green: 0x1a/255, blue: 0x18/255)   // bg-surface  (was vPanel)
+    static let cxElevated = Color.cxFg.opacity(0.08)                                // bg-elevated
+    static let cxMuted    = Color.cxFg.opacity(0.55)                                // fg2, border (was vMuted)
+    static let cxHairline = Color.cxFg.opacity(0.22)                                // border-light
+    static let cxAccent   = Color(red: 0xff/255, green: 0x7a/255, blue: 0x3d/255)   // accent
+    static let cxAccentFg = Color(red: 0x0c/255, green: 0x14/255, blue: 0x13/255)   // accent-fg
+}
+
+enum CXSpace {                       // spacing scale
+    static let s2: CGFloat = 4,  s3: CGFloat = 6,  s4: CGFloat = 8,  s5: CGFloat = 10
+    static let s6: CGFloat = 12, s7: CGFloat = 16, s8: CGFloat = 20, s9: CGFloat = 24
+    static let glass: CGFloat = 12   // glass-spacing
+}
+
+// MARK: - Glass surface. Glass is the one rounded layer: a rounded rect at radius-glass for
+// surfaces, or the system capsule when `cornerRadius` is nil. Content stays square.
+
+enum CXRadius {
+    static let content: CGFloat = 0    // radius
+    static let glass: CGFloat = 16     // radius-glass
+}
+
+struct CXGlass: ViewModifier {
+    var cornerRadius: CGFloat? = CXRadius.glass
+    var tint: Color? = nil
+    var interactive = false
+
+    private var shape: AnyShape {
+        if let cornerRadius { return AnyShape(.rect(cornerRadius: cornerRadius)) }
+        return AnyShape(.capsule)
+    }
+
+    func body(content: Content) -> some View {
+        #if compiler(>=6.2)
+        if #available(macOS 26.0, *) {
+            content.glassEffect(glass, in: shape)
+        } else {
+            fallback(content)
+        }
+        #else
+        fallback(content)
+        #endif
+    }
+
+    #if compiler(>=6.2)
+    @available(macOS 26.0, *)
+    private var glass: Glass {
+        var g = Glass.regular
+        if let tint { g = g.tint(tint) }
+        if interactive { g = g.interactive() }
+        return g
+    }
+    #endif
+
+    // macOS 14–15: a system material and a hairline standing in for the rim.
+    private func fallback(_ content: Content) -> some View {
+        content
+            .background(.ultraThinMaterial, in: shape)
+            .overlay(shape.stroke(Color.cxHairline, lineWidth: 1))
+    }
+}
+
+extension View {
+    /// Apply AFTER every other appearance modifier: the effect captures the content as it is.
+    /// `cornerRadius: nil` gives the system capsule.
+    func cxGlass(cornerRadius: CGFloat? = CXRadius.glass, tint: Color? = nil, interactive: Bool = false) -> some View {
+        modifier(CXGlass(cornerRadius: cornerRadius, tint: tint, interactive: interactive))
+    }
+}
+
+// MARK: - Glass group. One container per cluster; never nest containers.
+
+struct CXGlassGroup<Content: View>: View {
+    var spacing: CGFloat = CXSpace.glass
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        #if compiler(>=6.2)
+        if #available(macOS 26.0, *) {
+            GlassEffectContainer(spacing: spacing) { content }
+        } else {
+            content
+        }
+        #else
+        content
+        #endif
+    }
+}
+
+// MARK: - Glass buttons. The system styles, as Apple draws them: capsules.
+
+extension View {
+    /// `.buttonStyle(.glass)` or `.buttonStyle(.glassProminent)` on macOS 26; bordered styles before it.
+    @ViewBuilder func cxGlassButton(prominent: Bool = false) -> some View {
+        #if compiler(>=6.2)
+        if #available(macOS 26.0, *) {
+            if prominent { self.buttonStyle(.glassProminent).tint(Color.cxAccent) } else { self.buttonStyle(.glass) }
+        } else {
+            cxFallbackButton(prominent)
+        }
+        #else
+        cxFallbackButton(prominent)
+        #endif
+    }
+
+    @ViewBuilder fileprivate func cxFallbackButton(_ prominent: Bool) -> some View {
+        if prominent { self.buttonStyle(.borderedProminent).tint(Color.cxAccent) } else { self.buttonStyle(.bordered) }
+    }
+}
+
+// MARK: - Mapping from CoreXChat as it is today
+//
+//   NavigationSplitView sidebar   remove `.background(Color.vPanel)`: on macOS 26 the system gives the sidebar its glass.
+//   Picker(.segmented) in sidebar leave to the system, or CXGlassGroup around two buttons.
+//   ChatView header bar           move the buttons into `.toolbar { }`; the system groups them on glass.
+//   Bubble, SectionBox            content, not glass. `.background(Color.cxSurface)`; `.cornerRadius(8)` becomes 0.
+//   AvatarView                    unchanged: dashed monogram circle.
+//   ExactMissionButtonStyle       unchanged inside panels; .cxGlassButton() only for actions floating over content.
+//   Offline banner (0.45, 0.18, 0.12)   not a token yet. Decide whether it becomes one.

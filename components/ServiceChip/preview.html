@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" height=200 width=700 subtitle="Dot + name:port + note" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Service chip</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;min-height:200px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:22px 26px}
+.spec{display:flex;flex-direction:column;gap:14px}
+.spec-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.spec-lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg3);text-transform:uppercase;letter-spacing:0.1em}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { ServiceChip } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+function demo(){
+  const svc=[['gateway','8090','up','v0.42.1'],['llm','8091','up','mlx::ministral-8b'],['rag','8092','up',null],['vision','8094','warn','queue=12'],['said','8096','down','restart pending'],['ext','',{},'']];
+  return h('div',{className:'spec'},
+    h('div',{className:'spec-lbl'},'inline meta'),
+    h('div',{className:'spec-row',style:{gap:16}},
+      h(ServiceChip,{name:'gateway',port:'8090',status:'up',note:'v0.42.1'}),
+      h(ServiceChip,{name:'llm',port:'8091',status:'up'}),
+      h(ServiceChip,{name:'vision',port:'8094',status:'warn',note:'queue=12'}),
+      h(ServiceChip,{name:'said',port:'8096',status:'down'})
+    ),
+    h('div',{className:'spec-lbl'},'interactive · bordered'),
+    h('div',{className:'spec-row'},
+      h(ServiceChip,{name:'embed',port:'8095',status:'up',onClick:()=>{}}),
+      h(ServiceChip,{name:'tts',port:'8097',status:'up',onClick:()=>{}}),
+      h(ServiceChip,{name:'flux',port:'8098',status:'idle',onClick:()=>{}})
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

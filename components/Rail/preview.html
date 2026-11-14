@@ -1,0 +1,59 @@
+<!-- @dsCard group="Components" height=620 width=900 subtitle="Icon-first nav · collapsed + expanded · flags + states" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rail</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:900px;height:620px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:22px 26px;height:100%}
+.row{display:flex;gap:24px;height:100%;align-items:stretch}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.stack{display:flex;flex-direction:column;height:100%;min-height:0}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Rail } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const ITEMS = [
+  {id:'board',code:'BRD',name:'Board',icon:'mode-board',status:'active'},
+  {id:'orch',code:'ORC',name:'Orchestrator',icon:'mode-orchestrator',status:'new'},
+  {id:'chat',code:'CHT',name:'Chat',icon:'mode-chat',status:'active'},
+  {id:'voice',code:'VOX',name:'Voice',icon:'mode-voice',status:'new'},
+  {id:'code',code:'COD',name:'Code',icon:'mode-code',status:'tool'},
+  {id:'image',code:'IMG',name:'Image',icon:'mode-image',status:'active'},
+  {id:'research',code:'RSH',name:'Research',icon:'mode-research',status:'active'},
+  {id:'disk',code:'DSK',name:'Disk Ops',icon:'mode-disk',status:'warn'},
+];
+const FOOT = [
+  {id:'hub',code:'HUB',name:'Hub',icon:'grid'},
+  {id:'set',code:'SET',name:'Settings',icon:'settings'},
+];
+function App(){
+  const [a,setA] = React.useState('voice');
+  const [b,setB] = React.useState('orch');
+  return h('div',{className:'row'},
+    h('div',{className:'stack'}, h('div',{className:'lbl'},'collapsed · 64px'),
+      h(Rail,{items:ITEMS,footer:FOOT,active:a,onSelect:setA,svc:'ONLINE'})),
+    h('div',{className:'stack'}, h('div',{className:'lbl'},'expanded · 188px'),
+      h(Rail,{items:ITEMS,footer:FOOT,active:b,onSelect:setB,expanded:true,svc:'ONLINE'})),
+    h('div',{className:'stack',style:{flex:1}}, h('div',{className:'lbl'},'dark surface · tier overlay'),
+      h('div',{'data-surface':'dark',style:{display:'flex',flex:1,minHeight:0,background:'#161a18',padding:14,gap:14}},
+        h(Rail,{items:ITEMS.slice(0,6),footer:FOOT,active:'voice',svc:'ONLINE',tier:'overlay'}),
+        h('div',{style:{flex:1,display:'flex',flexDirection:'column',gap:8,color:'var(--fg2)',fontFamily:'var(--font-mono)',fontSize:10,letterSpacing:'.06em'}},
+          h('div',{className:'lbl',style:{color:'var(--fg3)'}},'flags'),
+          h('div',null,'● new  — accent dot'),
+          h('div',null,'○ tool — hollow ring'),
+          h('div',null,'● warn — amber'),
+          h('div',{style:{marginTop:10}},'active — solid accent border'),
+          h('div',null,'+ 2px left accent bar'))))
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>

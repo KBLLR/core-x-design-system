@@ -1,0 +1,43 @@
+<!-- @dsCard group="Data" height=260 width=700 subtitle="Shape of a series · no axes, no scale claim" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sparkline</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;overflow-x:hidden}
+#root{padding:22px 26px}
+.panel{border:1px dashed var(--border-light);background:var(--mat-2-fill);padding:14px}
+h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const NSX = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+const { Sparkline } = NSX;
+function demo(){
+  const up=[3,5,4,8,6,9,7,12,10,14,11,16,13,18,15,19,17,22,20,24];
+  const noisy=[12,4,18,7,15,9,20,6,17,11,3,19,8,14,10,22,5,16,13,21];
+  return h('div',null,
+    h('h4',null,'line · fill · last point'),
+    h('div',{style:{display:'flex',gap:28,alignItems:'center',marginBottom:20,flexWrap:'wrap'}},
+      h(Sparkline,{data:up}), h(Sparkline,{data:up,fill:true}), h(Sparkline,{data:up,showLast:true,fill:true})),
+    h('h4',null,'tones carry the reading, not the scale'),
+    h('div',{style:{display:'flex',gap:28,alignItems:'center',marginBottom:20,flexWrap:'wrap'}},
+      h(Sparkline,{data:up,tone:'var(--status-green)',fill:true,showLast:true}),
+      h(Sparkline,{data:[...up].reverse(),tone:'var(--status-red)',fill:true,showLast:true}),
+      h(Sparkline,{data:noisy,tone:'var(--status-amber)'})),
+    h('h4',null,'wide · inline with a metric'),
+    h('div',{style:{display:'flex',gap:14,alignItems:'baseline'}},
+      h('span',{className:'metric metric-lg tnum'},'8 932'),
+      h('span',{className:'metric-unit'},'evt/s'),
+      h(Sparkline,{data:noisy,width:220,height:32,tone:'var(--status-blue)',fill:true,showLast:true})));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

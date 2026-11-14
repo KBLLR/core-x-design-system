@@ -1,0 +1,47 @@
+<!-- @dsCard group="Foundations" height=560 width=920 subtitle="7 variants · indeterminate, determinate, telemetry" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Loaders</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:920px;overflow-x:hidden}
+#root{padding:26px 30px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border:1px dashed var(--border-light)}
+.cell{background:var(--bg);padding:20px 18px;display:flex;flex-direction:column;gap:12px;min-height:140px}
+.cell h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase}
+.cell .stage{flex:1;display:flex;align-items:center;justify-content:center}
+.cell .note{font-family:var(--font-body);font-size:10.5px;color:var(--fg2);line-height:1.45}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Loader } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const cell = (name, note, node) => h('div',{key:name,className:'cell'},
+  h('h4',null,name), h('div',{className:'stage'},node), h('p',{className:'note'},note));
+function demo(){
+  return h('div',null,
+    h('div',{className:'overline',style:{marginBottom:12}},'loaders · pick by what you actually know'),
+    h('div',{className:'grid'},
+      cell('ring','Default indeterminate. The dashed border, set spinning.', h(Loader,{variant:'ring',size:34})),
+      cell('orbit','Connecting / handshake. Signal dots in orbit.', h(Loader,{variant:'orbit',size:34,tone:'blue'})),
+      cell('cells','Batched work — one cell per queued unit.', h(Loader,{variant:'cells',count:8,size:40})),
+      cell('sweep','Transit. Feels directional without claiming a figure.', h(Loader,{variant:'sweep',height:8,label:'staging'})),
+      cell('strip','Marquee-derived. For long streaming operations.', h(Loader,{variant:'strip',height:10})),
+      cell('bar','The only variant permitted a percentage.', h(Loader,{variant:'bar',value:68,height:8,label:'reclaim'})),
+      cell('counter','Live telemetry with a blinking cursor.', h(Loader,{variant:'counter',value:'128.4',unit:'tok/s',label:'throughput',tone:'green'})),
+      cell('with caption','Any variant takes a caption and becomes a live region.', h(Loader,{variant:'ring',size:26,caption:'planning'})),
+      cell('tones','Tone carries meaning — amber waits, red retries.', h('div',{style:{display:'flex',gap:14}},
+        h(Loader,{variant:'ring',size:22,tone:'amber'}),
+        h(Loader,{variant:'ring',size:22,tone:'red'}),
+        h(Loader,{variant:'ring',size:22,tone:'muted'})))
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!-- @dsCard group="Native shell" height=300 width=700 subtitle="Sidebar identity · head, roles, configured state" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IdentityRow</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:var(--bg)}
+.stage{position:relative;width:700px;min-height:300px;background:var(--bg);color:var(--fg1);overflow:hidden;box-sizing:border-box;padding:22px 26px}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+.stage>*{position:relative}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg2);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px;margin-bottom:18px}
+.scene{position:relative;background:var(--bg);display:flex;align-items:center;gap:14px;padding:18px;overflow:hidden}
+.scene i{position:absolute;display:block}
+.scene .b1{left:0;top:0;width:38%;height:100%;background:var(--fg1)}
+.scene .b2{left:38%;top:0;width:24%;height:60%;background:var(--accent)}
+.scene .b3{left:62%;top:40%;width:18%;height:60%;background:var(--status-green)}
+.scene .b4{left:80%;top:0;width:20%;height:100%;background:var(--status-blue)}
+.scene>:not(i){position:relative}
+.side{width:300px;padding:8px 0}</style>
+</head>
+<body>
+<div class="stage" data-theme="macos"><div id="root"></div></div>
+<script>
+const NS = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const { IdentityRow } = NS;
+function Demo(){const [s,setS]=React.useState('Anja');const r=(p)=>h(IdentityRow,{key:p.name,...p,selected:s===p.name,onSelect:()=>setS(p.name)});
+ return h('div',null,h('div',{className:'lbl'},'in a sidebar · click to select'),h('div',{className:'side lg'},
+  r({name:'Eli',head:true,house:'Core-X',status:'active'}),
+  r({name:'Anja',roles:['academic head','Project Anja house orchestrator'],status:'active'}),
+  r({name:'Avara',house:'Avatar Labs',status:'development'}),
+  r({name:'Unmapped agent',house:'—',status:'proposed',chatAvailable:false})));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
+</body>
+</html>

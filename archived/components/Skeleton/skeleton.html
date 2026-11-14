@@ -1,0 +1,39 @@
+<!-- @dsCard group="Foundations" viewport="920x420" name="Skeletons" subtitle="Shimmer placeholders · text, block, card, list, metric" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skeletons</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:920px;overflow-x:hidden}
+#root{padding:26px 30px}
+.grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:20px}
+.col{display:flex;flex-direction:column;gap:10px}
+h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Skeleton } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+function demo(){
+  return h('div',null,
+    h('div',{className:'overline',style:{marginBottom:14}},'skeletons · a skeleton is a promise the data is coming'),
+    h('div',{className:'grid'},
+      h('div',{className:'col'}, h('h4',null,'text · 4 lines'), h(Skeleton,{variant:'text',lines:4}),
+        h('h4',{style:{marginTop:8}},'metric'), h(Skeleton,{variant:'metric'})),
+      h('div',{className:'col'}, h('h4',null,'card'), h(Skeleton,{variant:'card'})),
+      h('div',{className:'col'}, h('h4',null,'list · 4 rows'), h(Skeleton,{variant:'list',count:4}),
+        h('h4',{style:{marginTop:8}},'block'), h(Skeleton,{variant:'block',height:60}))
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

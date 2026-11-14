@@ -1,0 +1,33 @@
+/* Haloform → Core-X. Maps @haloform/theme-penev's --hf-* properties onto Core-X tokens.
+   Load after tokens.css, in place of theme-penev's theme.css.
+
+   Two things this file cannot reach, because ActionHUD writes them as literals inside its shadow root:
+   - inner radii of 6px and 8px (only the container reads --hf-radius), so the HUD is not fully square;
+   - #ffffff text on the Approve and Reject fills, which is under 4.5:1 on the lifted status hues of
+     VECTRA, EMBER and MACOS. Until Haloform exposes those as properties, use it on KBLLR, or use the
+     design system's own ActionHUD. */
+:root, [data-theme] {
+  --hf-color-canvas: var(--bg);
+  --hf-color-surface: var(--mat-5-fill);
+  --hf-color-surface-raised: var(--bg-surface);
+  --hf-color-text: var(--fg1);
+  --hf-color-muted: var(--fg2);
+  --hf-color-accent: var(--accent);
+  --hf-color-danger: var(--status-red);
+  --hf-color-success: var(--status-green);
+  --hf-border-color: var(--border-light);
+  --hf-border-style: dashed;
+  --hf-border-width: 1px;
+  --hf-radius: var(--radius);
+  --hf-shadow: var(--shadow-4);
+  --hf-font-body: var(--font-body);
+  --hf-font-display: var(--font-heading);
+  --hf-font-mono: var(--font-mono);
+  --hf-space-xs: var(--space-3);   /* 6px, as theme-penev */
+  --hf-space-sm: var(--space-5);   /* 10px, as theme-penev */
+  --hf-space-md: var(--space-7);   /* 16px; theme-penev has 18px */
+  --hf-space-lg: var(--space-9);   /* 24px; theme-penev has 28px */
+  --hf-space-xl: var(--space-10);  /* 32px; theme-penev has 40px */
+  --hf-motion-fast: var(--dur-fast);
+  --hf-motion-normal: var(--dur-base);
+}

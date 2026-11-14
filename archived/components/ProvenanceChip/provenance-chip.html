@@ -1,0 +1,43 @@
+<!-- @dsCard group="Data" viewport="700x240" name="Provenance chip" subtitle="Where a number came from · 5 states" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Provenance chip</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:700px;overflow-x:hidden}
+#root{padding:22px 26px}
+.panel{border:1px dashed var(--border-light);background:var(--mat-2-fill);padding:14px}
+h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const NSX = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+const { ProvenanceChip, StatTile } = NSX;
+function demo(){
+  const S=['fresh','stale','partial','failed','missing'];
+  return h('div',null,
+    h('h4',null,'states'),
+    h('div',{style:{display:'flex',gap:8,flexWrap:'wrap',marginBottom:18}}, S.map(s=>h(ProvenanceChip,{key:s,status:s,detail:s+' — tooltip carries the job and file'}))),
+    h('h4',null,'with age'),
+    h('div',{style:{display:'flex',gap:8,flexWrap:'wrap',marginBottom:18}},
+      h(ProvenanceChip,{status:'fresh',age:'2m ago'}),
+      h(ProvenanceChip,{status:'stale',age:'3h ago'}),
+      h(ProvenanceChip,{status:'stale',age:'6d ago'})),
+    h('h4',null,'paired with the figure it vouches for'),
+    h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}},
+      h(StatTile,{label:'QA passed',value:'301',note:'of 412 scored'}),
+      h(StatTile,{label:'readiness',withheld:true,why:'aggregate job exited 1'})));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

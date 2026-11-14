@@ -1,0 +1,67 @@
+<!-- @dsCard group="Components" viewport="900x520" name="Dropdown" subtitle="Click-to-open menu · pill / field / ghost · multi + swatches" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dropdown</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:900px;min-height:520px}
+#root{padding:24px 28px}
+h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:26px}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+// The bundle recompiles at end of turn; if this page is opened against an older
+// build, say so plainly instead of white-screening on an undefined export.
+function __requireExports(ns, names){
+  const missing = names.filter(n => !ns || ns[n] === undefined);
+  if (!missing.length) return true;
+  document.getElementById('root').innerHTML =
+    '<div style="padding:40px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.7;color:#8a3030">'
+    + '<b style="display:block;font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">stale bundle</b>'
+    + '_ds_bundle.js?v=3 is missing: <b>' + missing.join(', ') + '</b><br>'
+    + 'The design-system bundle recompiles at the end of a turn. Reload this page once it has.</div>';
+  return false;
+}
+const __ns = window.KBLLRCoreXDesignSystem_019e2e;
+if (!__requireExports(__ns, ['Dropdown','CX_ENTITIES'])) throw new Error('stale');
+const { Dropdown, CX_ENTITIES } = __ns;
+const h = React.createElement;
+const { useState } = React;
+function App(){
+  const [lane,setLane]=useState('mlx');
+  const [ent,setEnt]=useState('rigging');
+  const [pol,setPol]=useState('dry-run');
+  const [svc,setSvc]=useState(['llm','rag']);
+  const [eff,setEff]=useState('high');
+  return h('div',null,
+    h('h4',null,'pill · toolbar controls'),
+    h('div',{className:'row'},
+      h(Dropdown,{value:eff,onChange:setEff,icon:'brain',width:150,
+        options:[{value:'minimal',label:'minimal',meta:'fastest'},{value:'low',label:'low'},{value:'medium',label:'medium'},{value:'high',label:'high',meta:'deepest'}]}),
+      h(Dropdown,{value:lane,onChange:setLane,icon:'cpu',width:190,
+        options:[{value:'mlx',label:'mlx::ministral-8b',dot:'#3d7a45'},{value:'mlx-l',label:'mlx::mistral-large',dot:'#8a7420'},{value:'remote',label:'remote::claude',dot:'#3d6e96'},{value:'off',label:'offline',dot:'#9a9a9a',disabled:true}]}),
+      h(Dropdown,{value:pol,onChange:setPol,icon:'shield',align:'right',width:160,footer:'apply needs confirmation',
+        options:[{value:'dry-run',label:'dry-run',meta:'no mutations'},{value:'apply',label:'apply',meta:'commits'},{value:'isolated',label:'isolated'}]})),
+    h('h4',null,'field · form input'),
+    h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:26}},
+      h(Dropdown,{trigger:'field',label:'entity',value:ent,onChange:setEnt,
+        options:CX_ENTITIES.slice(0,10).map(e=>({value:e.id,label:e.name,meta:e.tagline,swatch:e.accent}))}),
+      h(Dropdown,{trigger:'field',label:'services',multi:true,value:svc,onChange:setSvc,placeholder:'none selected',
+        options:[{value:'llm',label:'llm:8091',dot:'#3d7a45'},{value:'rag',label:'rag:8092',dot:'#3d7a45'},{value:'vision',label:'vision:8094',dot:'#8a7420'},{value:'said',label:'said:8096',dot:'#8a3030'}]})),
+    h('h4',null,'ghost · inline, and disabled'),
+    h('div',{className:'row'},
+      h(Dropdown,{trigger:'ghost',value:'kbllr',options:[{value:'kbllr',label:'KBLLR'},{value:'vectra',label:'VECTRA'},{value:'ember',label:'EMBER'}]}),
+      h(Dropdown,{value:'locked',disabled:true,options:[{value:'locked',label:'locked'}]})));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>

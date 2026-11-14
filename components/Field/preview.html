@@ -1,0 +1,34 @@
+<!-- @dsCard group="Components" height=260 width=700 subtitle="Dashed input · focus goes solid" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Field</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;min-height:260px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:22px 26px}
+.spec{display:flex;flex-direction:column;gap:14px}
+.spec-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.spec-lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg3);text-transform:uppercase;letter-spacing:0.1em}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Field } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+function demo(){
+  return h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:18}},
+    h(Field,{label:'plan id',value:'plan_2026-05-17_a04f',hint:'read-only from anthology'}),
+    h(Field,{label:'prompt',placeholder:'Tell the orchestrator what to do...'}),
+    h(Field,{label:'policy',value:'aply',invalid:true,hint:'unknown policy — expected apply|dry-run'}),
+    h(Field,{label:'locked',value:'vault://core-x',disabled:true})
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

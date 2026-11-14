@@ -1,0 +1,68 @@
+<!-- @dsCard group="Data" viewport="920x520" name="Data primitives" subtitle="StatTile · FunnelBar · ProvenanceChip · Sparkline" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Data primitives</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:920px;overflow-x:hidden}
+#root{padding:24px 28px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.sec{margin-bottom:22px}
+.panel{border:1px dashed var(--border-light);background:var(--mat-2-fill);padding:14px}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { StatTile, FunnelBar, ProvenanceChip, Sparkline } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const STAGES = [
+  {id:'import',label:'imported',done:412,waiting:0},
+  {id:'norm',label:'normalised',done:388,waiting:24},
+  {id:'qa',label:'QA passed',done:301,waiting:87},
+  {id:'face',label:'face review',done:142,waiting:159,optional:true},
+  {id:'rig',label:'controller ready',done:96,waiting:205},
+];
+const series = [3,5,4,8,6,9,7,12,10,14,11,16,13,18,15,19,17,22,20,24];
+function demo(){
+  return h('div',null,
+    h('div',{className:'overline',style:{marginBottom:12}},'stat tiles · a withheld figure is safer than a plausible zero'),
+    h('div',{className:'g4'},
+      h(StatTile,{label:'catalog',value:'412'}),
+      h(StatTile,{label:'full journey',value:'96',note:'23% of catalog'}),
+      h(StatTile,{label:'throughput',value:'128.4',unit:'tok/s',delta:'+12',deltaTone:'good',tone:'good'}),
+      h(StatTile,{label:'rig maturity',withheld:true,why:'rig-maturity.json write failed 14m ago'})
+    ),
+    h('div',{className:'sec'},
+      h('div',{className:'hd'},
+        h('span',{className:'overline',style:{border:'none',padding:0}},'pipeline · done vs waiting'),
+        h(ProvenanceChip,{status:'fresh',age:'2m ago',detail:'character-progress.json · run 0044'})),
+      h('div',{className:'panel'}, h(FunnelBar,{stages:STAGES}))),
+    h('div',{className:'sec'},
+      h('div',{className:'hd'},
+        h('span',{className:'overline',style:{border:'none',padding:0}},'provenance · every aggregate carries one')),
+      h('div',{style:{display:'flex',gap:8,flexWrap:'wrap'}},
+        h(ProvenanceChip,{status:'fresh',age:'2m ago',detail:'written by the last successful run'}),
+        h(ProvenanceChip,{status:'stale',age:'3h ago',detail:'older than the last rig job'}),
+        h(ProvenanceChip,{status:'partial',detail:'2 of 3 inputs succeeded'}),
+        h(ProvenanceChip,{status:'failed',detail:'aggregate job exited 1'}),
+        h(ProvenanceChip,{status:'missing',detail:'no artifact on disk'}))),
+    h('div',{className:'sec'},
+      h('div',{className:'hd'}, h('span',{className:'overline',style:{border:'none',padding:0}},'sparklines · shape, never level')),
+      h('div',{style:{display:'flex',gap:26,alignItems:'center',flexWrap:'wrap'}},
+        h(Sparkline,{data:series,showLast:true}),
+        h(Sparkline,{data:series,fill:true,tone:'var(--status-green)',showLast:true}),
+        h(Sparkline,{data:[...series].reverse(),tone:'var(--status-red)',fill:true}),
+        h(Sparkline,{data:series,width:200,height:36,tone:'var(--status-blue)',fill:true,showLast:true})))
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

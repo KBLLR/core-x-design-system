@@ -1,0 +1,35 @@
+<!-- @dsCard group="Components" height=160 width=700 subtitle="Log ticker · 38s linear" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Marquee</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{background:var(--bg);width:700px;min-height:160px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+#root{position:relative;z-index:1;padding:22px 26px}
+.spec{display:flex;flex-direction:column;gap:14px}
+.spec-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.spec-lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg3);text-transform:uppercase;letter-spacing:0.1em}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Marquee } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+function demo(){
+  const logs=['[INFO] core: launcher initialized','[INFO] core: bus connected','[DEBUG] mlx: prepare ministral-8b','[WARN] embed: pending_queue=12','[INFO] orch: plan ready'];
+  return h('div',{className:'spec'},
+    h('div',{className:'spec-lbl'},'tinted · default'),
+    h(Marquee,{items:logs}),
+    h('div',{className:'spec-lbl'},'plain · slower'),
+    h(Marquee,{items:logs,tinted:false,duration:60})
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

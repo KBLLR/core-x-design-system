@@ -1,0 +1,54 @@
+<!-- @dsCard group="Foundations" viewport="1000x760" name="Icon set" subtitle="137 glyphs · 24×24 · stroke 1.5 · Lucide-compatible" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Icon set</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:1000px;overflow-x:hidden}
+#root{padding:26px 30px}
+.grp{margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:1px;background:var(--border-light);border:1px dashed var(--border-light)}
+.cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:12px 6px;background:var(--bg);color:var(--fg1);min-height:74px}
+.cell:hover{background:rgba(255,255,255,.5)}
+.nm{font-family:var(--font-mono);font-size:8.5px;color:var(--fg3);letter-spacing:.03em;text-align:center;word-break:break-all;line-height:1.3}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { Icon, CX_ICON_NAMES } = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+const GROUPS = [
+  ['shell / navigation', n => !n.includes('-') || ['home','grid','menu','close','settings','expand','collapse','minimise','maximise','external','sidebar','drag','grip'].includes(n) || n.startsWith('chevron')||n.startsWith('arrow')||n.startsWith('panel')||n.startsWith('menu')],
+  ['modes', n => n.startsWith('mode-')],
+  ['render types', n => n.startsWith('render-')],
+  ['media', n => ['play','pause','stop','record','skip-back','skip-fwd','mic','mic-off','speaker','mute','waveform'].includes(n)],
+  ['actions', n => ['send','copy','download','upload','share','save','vault','trash','edit','pin','search','filter','sort','refresh','sync','link','attach','plus','minus','check','more-h','more-v','undo','redo'].includes(n)],
+  ['status / system', n => ['alert','info','error','ok','clock','lock','unlock','shield','cpu','gpu','memory','network','battery','thermometer','bolt','power','plug','signal'].includes(n)],
+  ['data', n => ['database','layers','branch','merge','tree','gauge','sparkline','histogram','funnel'].includes(n)||n.startsWith('chart-')],
+  ['files', n => ['file','file-code','folder','folder-open','archive','glb','hdri','texture'].includes(n)],
+  ['session', n => ['user','users','key','logout','brain','atom','flask','target','eye','eye-off','sun','moon','contrast'].includes(n)],
+];
+const used = new Set();
+function demo(){
+  return h('div',null, GROUPS.map(([label,test])=>{
+    const names = CX_ICON_NAMES.filter(n=>!used.has(n) && test(n));
+    names.forEach(n=>used.add(n));
+    if(!names.length) return null;
+    return h('div',{key:label,className:'grp'},
+      h('div',{className:'overline',style:{marginBottom:10}},label+' · '+names.length),
+      h('div',{className:'grid'}, names.map(n=>
+        h('div',{key:n,className:'cell'}, h(Icon,{name:n,size:22}), h('span',{className:'nm'},n))
+      ))
+    );
+  }));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

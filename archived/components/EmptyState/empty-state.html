@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" viewport="920x470" name="Empty states" subtitle="empty · loading · error · denied · offline · missing" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Empty states</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+html,body{background:var(--bg);width:920px;overflow-x:hidden}
+#root{padding:22px 26px}
+.panel{border:1px dashed var(--border-light);background:var(--mat-2-fill);padding:14px}
+h4{font-family:var(--font-mono);font-size:9px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js?v=3"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const NSX = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+
+const { EmptyState, Button } = NSX;
+function demo(){
+  return h('div',null,
+    h('div',{className:'overline',style:{marginBottom:12}},'states · say what the system tried, and name the fix'),
+    h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}},
+      h(EmptyState,{kind:'empty',title:'No plan yet',detail:'Generate a plan to inspect proposed actions and confirm execution.',action:h(Button,{variant:'ghost',size:'sm'},'Build plan')}),
+      h(EmptyState,{kind:'missing',title:'No artifacts found',detail:'The ops directory exists but holds no progress files.',hint:'npm run rig:progress -- --emit'}),
+      h(EmptyState,{kind:'error',title:'Failed to build plan',detail:'The orchestrator returned 500 on lane selection.',hint:'core-x logs orch --tail 50'}),
+      h(EmptyState,{kind:'offline',title:'said:8096 unreachable',detail:'The service is registered but not answering health checks.',hint:'core-x svc restart said'})),
+    h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginTop:12}},
+      h(EmptyState,{kind:'denied',title:'Policy blocked',detail:'Vault writes require a signed rotation policy.',compact:true}),
+      h(EmptyState,{kind:'loading',title:'Reading ops artifacts',compact:true})));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(demo());
+</script>
+</body>
+</html>

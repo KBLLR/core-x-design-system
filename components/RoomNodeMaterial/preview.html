@@ -1,0 +1,39 @@
+<!-- @dsCard group="Materials" height=290 width=760 subtitle="Height gradient + occupancy glow" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RoomNodeMaterial</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:var(--bg)}
+.stage{position:relative;width:760px;min-height:290px;background:var(--bg);color:var(--fg1);overflow:hidden;box-sizing:border-box;padding:22px 26px}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 99px,#9a9a9a22 99px 100px),repeating-linear-gradient(90deg,transparent 0 99px,#9a9a9a22 99px 100px)}
+.stage>*{position:relative}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--fg2);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px;margin-bottom:18px}
+.scene{position:relative;background:var(--bg);display:flex;align-items:center;gap:14px;padding:18px;overflow:hidden}
+.scene i{position:absolute;display:block}
+.scene .b1{left:0;top:0;width:38%;height:100%;background:var(--fg1)}
+.scene .b2{left:38%;top:0;width:24%;height:60%;background:var(--accent)}
+.scene .b3{left:62%;top:40%;width:18%;height:60%;background:var(--status-green)}
+.scene .b4{left:80%;top:0;width:20%;height:100%;background:var(--status-blue)}
+.scene>:not(i){position:relative}
+.sw{display:flex;flex-direction:column;gap:8px;align-items:center}.sw canvas{width:120px;height:160px;display:block}.sw span{font-family:var(--font-mono);font-size:10px;color:var(--fg2)}.probe{position:absolute;width:0;height:0;overflow:hidden}</style>
+</head>
+<body>
+<div class="stage" data-theme="vectra"><div id="root"></div></div>
+<script>
+const NS = window.KBLLRCoreXDesignSystem_019e2e;
+const h = React.createElement;
+// 2D reading of buildRoomNodeMaterial's colour maths: colorNode = mix(baseBottom, baseTop, height) + glow * 0.18, emissive = glow * 1.15,
+// glow = smoothstep(0, 1, occupancy) * accent. The real material is a lit MeshStandardNodeMaterial; this shows the palette, not the lighting.
+function rgb(css){const e=document.createElement('i');e.style.color=css;document.querySelector('.probe').appendChild(e);const m=getComputedStyle(e).color.match(/[0-9.]+/g).map(Number);e.remove();return m.slice(0,3);}
+const ss=(x)=>x*x*(3-2*x);
+function block(cv,occ,accent){const c=cv.getContext('2d'),W=cv.width,H=cv.height,b=rgb('#13172b'),t=rgb('#311649'),a=rgb(accent),g=ss(occ);
+ for(let y=0;y<H;y++){const k=1-y/(H-1);const col=[0,1,2].map((i)=>Math.min(255,(b[i]+(t[i]-b[i])*k)+a[i]*g*0.18+a[i]*g*1.15*0.5));c.fillStyle=`rgba(${col.map(Math.round).join(',')},0.95)`;c.fillRect(0,y,W,1);}}
+const root=document.getElementById('root');root.innerHTML='<div class="probe"></div><div class="lbl">occupancy 0 · 0.25 · 0.5 · 1 — accent #2dd4bf (source default), then corex-campus</div><div class="row"></div>';
+[[0,'#2dd4bf'],[0.25,'#2dd4bf'],[0.5,'#2dd4bf'],[1,'#2dd4bf'],[1,'var(--corex-campus)']].forEach(([o,a])=>{const d=document.createElement('div');d.className='sw';const cv=document.createElement('canvas');cv.width=120;cv.height=160;const s=document.createElement('span');s.textContent='occupancy '+o+(a[0]==='v'?' · campus':'');d.append(cv,s);root.querySelector('.row').appendChild(d);block(cv,o,a);});
+</script>
+</body>
+</html>
