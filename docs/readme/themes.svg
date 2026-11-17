@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1248" height="220" viewBox="0 0 1248 220" role="img" aria-label="The four Core-X themes">
+<g>
+<rect x="0.5" y=".5" width="299" height="219" fill="#d1d1d0" stroke="#9a9a9a" stroke-dasharray="6 6"/>
+<text x="20" y="44" fill="#2d2824" font-family="Chakra Petch,Arial,sans-serif" font-size="20" font-weight="600" letter-spacing="3">KBLLR</text>
+<text x="20" y="72" fill="#6b6560" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="12">bg #d1d1d0 · accent #ff7a3d</text>
+<text x="20" y="96" fill="#6b6560" font-family="Inter,Helvetica,Arial,sans-serif" font-size="13">documents · the default</text>
+<rect x="20" y="120" width="24" height="24" fill="rgba(195, 195, 193, 0.70)" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="52" y="120" width="24" height="24" fill="#2d2824" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="84" y="120" width="24" height="24" fill="#6b6560" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="116" y="120" width="24" height="24" fill="#ff7a3d" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="148" y="120" width="24" height="24" fill="#3d7a45" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="180" y="120" width="24" height="24" fill="#b58106" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="212" y="120" width="24" height="24" fill="#8a3030" stroke="#9a9a9a" stroke-dasharray="3 3"/><rect x="244" y="120" width="24" height="24" fill="#3d6e96" stroke="#9a9a9a" stroke-dasharray="3 3"/>
+<rect x="20" y="166" width="120" height="30" fill="#2d2824"/>
+<text x="80" y="186" text-anchor="middle" fill="#d1d1d0" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">PRIMARY</text>
+<rect x="150.5" y="166.5" width="119" height="29" fill="none" stroke="#9a9a9a" stroke-dasharray="4 3"/>
+<text x="210" y="186" text-anchor="middle" fill="#2d2824" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">GHOST</text>
+</g>
+<g>
+<rect x="316.5" y=".5" width="299" height="219" fill="#0c0e0d" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="6 6"/>
+<text x="336" y="44" fill="#e6efe8" font-family="Chakra Petch,Arial,sans-serif" font-size="20" font-weight="600" letter-spacing="3">VECTRA</text>
+<text x="336" y="72" fill="#92a89a" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="12">bg #0c0e0d · accent #5cf08c</text>
+<text x="336" y="96" fill="#92a89a" font-family="Inter,Helvetica,Arial,sans-serif" font-size="13">the running machine</text>
+<rect x="336" y="120" width="24" height="24" fill="rgba(28, 36, 32, 0.80)" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="368" y="120" width="24" height="24" fill="#e6efe8" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="400" y="120" width="24" height="24" fill="#92a89a" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="432" y="120" width="24" height="24" fill="#5cf08c" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="464" y="120" width="24" height="24" fill="#6cc07a" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="496" y="120" width="24" height="24" fill="#d8b86a" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="528" y="120" width="24" height="24" fill="#d68a7a" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/><rect x="560" y="120" width="24" height="24" fill="#8fb6ff" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="3 3"/>
+<rect x="336" y="166" width="120" height="30" fill="#e6efe8"/>
+<text x="396" y="186" text-anchor="middle" fill="#0c0e0d" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">PRIMARY</text>
+<rect x="466.5" y="166.5" width="119" height="29" fill="none" stroke="rgba(140, 200, 160, 0.28)" stroke-dasharray="4 3"/>
+<text x="526" y="186" text-anchor="middle" fill="#e6efe8" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">GHOST</text>
+</g>
+<g>
+<rect x="632.5" y=".5" width="299" height="219" fill="#18090a" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="6 6"/>
+<text x="652" y="44" fill="#ffdcdb" font-family="Chakra Petch,Arial,sans-serif" font-size="20" font-weight="600" letter-spacing="3">EMBER</text>
+<text x="652" y="72" fill="#c28e90" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="12">bg #18090a · accent #ff5e6c</text>
+<text x="652" y="96" fill="#c28e90" font-family="Inter,Helvetica,Arial,sans-serif" font-size="13">faults and warnings only</text>
+<rect x="652" y="120" width="24" height="24" fill="rgba(56, 22, 25, 0.80)" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="684" y="120" width="24" height="24" fill="#ffdcdb" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="716" y="120" width="24" height="24" fill="#c28e90" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="748" y="120" width="24" height="24" fill="#ff5e6c" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="780" y="120" width="24" height="24" fill="#6cc07a" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="812" y="120" width="24" height="24" fill="#e8a86a" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="844" y="120" width="24" height="24" fill="#ff8a8a" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/><rect x="876" y="120" width="24" height="24" fill="#a8b6ff" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="3 3"/>
+<rect x="652" y="166" width="120" height="30" fill="#ffdcdb"/>
+<text x="712" y="186" text-anchor="middle" fill="#18090a" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">PRIMARY</text>
+<rect x="782.5" y="166.5" width="119" height="29" fill="none" stroke="rgba(255, 94, 108, 0.35)" stroke-dasharray="4 3"/>
+<text x="842" y="186" text-anchor="middle" fill="#ffdcdb" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">GHOST</text>
+</g>
+<g>
+<rect x="948.5" y=".5" width="299" height="219" fill="#111110" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="6 6"/>
+<text x="968" y="44" fill="#e6e4df" font-family="Chakra Petch,Arial,sans-serif" font-size="20" font-weight="600" letter-spacing="3">MACOS</text>
+<text x="968" y="72" fill="rgba(230, 228, 223, 0.55)" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="12">bg #111110 · accent #ff7a3d</text>
+<text x="968" y="96" fill="rgba(230, 228, 223, 0.55)" font-family="Inter,Helvetica,Arial,sans-serif" font-size="13">the native macOS app</text>
+<rect x="968" y="120" width="24" height="24" fill="rgba(230, 228, 223, 0.08)" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1000" y="120" width="24" height="24" fill="#e6e4df" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1032" y="120" width="24" height="24" fill="rgba(230, 228, 223, 0.55)" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1064" y="120" width="24" height="24" fill="#ff7a3d" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1096" y="120" width="24" height="24" fill="#6cc07a" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1128" y="120" width="24" height="24" fill="#d8b86a" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1160" y="120" width="24" height="24" fill="#d68a7a" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/><rect x="1192" y="120" width="24" height="24" fill="#8fb6ff" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="3 3"/>
+<rect x="968" y="166" width="120" height="30" fill="#e6e4df"/>
+<text x="1028" y="186" text-anchor="middle" fill="#111110" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">PRIMARY</text>
+<rect x="1098.5" y="166.5" width="119" height="29" fill="none" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="4 3"/>
+<text x="1158" y="186" text-anchor="middle" fill="#e6e4df" font-family="Chakra Petch,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="2">GHOST</text>
+</g>
+</svg>

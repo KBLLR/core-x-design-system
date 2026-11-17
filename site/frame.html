@@ -33,6 +33,13 @@
     el.textContent = s.textContent;
     document.body.appendChild(el);
   }
+  // The @dsCard size is a hint; report the real content size so the page never clips it.
+  const report = () => {
+    const d = document.documentElement;
+    parent.postMessage({ cxFrame: name, w: d.scrollWidth, h: d.scrollHeight }, location.origin);
+  };
+  new ResizeObserver(report).observe(document.body);
+  report();
 })();
 </script>
 </body>

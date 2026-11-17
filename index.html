@@ -87,7 +87,7 @@ td .bar{display:block;height:10px;background:var(--fg1)}
 .comp header{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:10px 12px;border-bottom:1px dashed var(--border)}
 .comp header b{font-family:var(--font-heading);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
 .comp .sum{padding:10px 12px 0;font-size:13px;max-width:none}
-.comp .stage{margin:12px;position:relative;overflow:hidden;border:1px dashed var(--border-light)}
+.comp .stage{margin:12px;position:relative;overflow:hidden;border:1px dashed var(--border-light);box-sizing:content-box}
 .comp iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
 pre{margin:0;padding:14px;border:1px dashed var(--border);background:var(--bg-surface);overflow-x:auto;font-family:var(--font-mono);font-size:11px;line-height:1.6}
 .g-use{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
@@ -374,12 +374,24 @@ function renderShadows() {
 async function renderComponents() {
   const data = await fetch('site/components.json').then(r => r.json());
   $('comp-meta').textContent = `${data.components.length} components · live previews · each loads when it scrolls into view`;
-  const fit = new ResizeObserver(entries => {
-    for (const e of entries) {
-      const s = e.target, w = +s.dataset.w, h = +s.dataset.h, k = Math.min(1, e.contentRect.width / w);
-      s.style.height = (h * k) + 'px';
-      const f = s.firstElementChild; if (f) f.style.transform = `scale(${k})`;
-    }
+  const stages = new Map();
+  const size = (s) => {
+    const w = +s.dataset.w, h = +s.dataset.h, k = Math.min(1, s.clientWidth / w);
+    s.style.height = (h * k) + 'px';
+    const f = s.firstElementChild;
+    if (f) { f.width = w; f.height = h; f.style.transform = `scale(${k})`; }
+  };
+  const fit = new ResizeObserver(entries => { for (const e of entries) size(e.target); });
+  // Each preview reports its real content size; grow the stage to show all of it.
+  window.addEventListener('message', (e) => {
+    if (e.origin !== location.origin || !e.data || !e.data.cxFrame) return;
+    const s = stages.get(e.data.cxFrame);
+    if (!s) return;
+    const w = Math.max(+s.dataset.base, Math.ceil(e.data.w)), h = Math.ceil(e.data.h);
+    if (w === +s.dataset.w && h === +s.dataset.h) return;
+    s.dataset.w = w; s.dataset.h = h;
+    s.style.maxWidth = w + 'px';
+    size(s);
   });
   const lazy = new IntersectionObserver(entries => {
     for (const e of entries) if (e.isIntersecting) {
@@ -394,7 +406,8 @@ async function renderComponents() {
     $('comp-groups').append(el('h3', { class: 'group-title' }, `${g} · ${items.length}`));
     for (const c of items) {
       const stage = el('div', { class: 'stage', style: `max-width:${c.width}px;height:${c.height}px` });
-      Object.assign(stage.dataset, { name: c.name, w: c.width, h: c.height });
+      Object.assign(stage.dataset, { name: c.name, w: c.width, h: c.height, base: c.width });
+      stages.set(c.name, stage);
       $('comp-groups').append(el('article', { class: 'comp' },
         el('header', {}, el('b', {}, c.name), el('span', { class: 'meta' }, c.subtitle)),
         c.summary ? el('p', { class: 'sum' }, prose(c.summary.replace(/\*\*/g, ''))) : '',
