@@ -511,9 +511,11 @@ From Haloform. **ActionHUD** shows the session state verbatim and puts an approv
 
 ## Site
 
-`index.html` at the repository root is the public page for this system, meant for GitHub Pages served from the root of `main`. It has no build step: it reads `tokens.json` and `tokens.css` directly, so it cannot drift from the tokens.
+Live at <https://core-x-design-system.vercel.app>.
+
+`index.html` at the repository root is the public page for this system. It is hosted on Vercel (project `core-x-design-system`, no framework, no build), which redeploys on every merge to `main`; the repository itself stays private. Everything in the repository root is served, so do not commit anything here that must stay private. It has no build step: it reads `tokens.json` and `tokens.css` directly, so it cannot drift from the tokens.
 
 - `site/frame.html?c=<Name>` runs one `components/<Name>/preview.html` on its own, with React from a CDN and the component bundle.
 - `site/components.json` is generated. After adding or changing a component preview, run `python3 tools/build-site-index.py` (`--check` verifies it).
-- `.nojekyll` stops Pages from processing the files.
+- `.nojekyll` is only needed if the page is ever served from GitHub Pages.
 - To view it locally: `python3 -m http.server` in the repository root.
