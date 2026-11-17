@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1264" height="260" viewBox="0 0 1264 260" role="img" aria-label="The shape rule: content is square, glass is round">
+<rect width="1264" height="260" fill="#111110"/>
+<rect x="0" y="0" width="420" height="260" fill="#ff7a3d" opacity=".85"/>
+<rect x="420" y="0" width="420" height="160" fill="#6cc07a" opacity=".85"/>
+<rect x="840" y="60" width="424" height="200" fill="#8fb6ff" opacity=".85"/>
+<g font-family="Chakra Petch,Arial,sans-serif" letter-spacing="2">
+<rect x="40.5" y="50.5" width="320" height="140" fill="#1a1a18" stroke="rgba(230, 228, 223, 0.55)" stroke-dasharray="6 5"/>
+<text x="64" y="94" fill="#e6e4df" font-size="16" font-weight="600">CONTENT</text>
+<text x="64" y="122" fill="rgba(230, 228, 223, 0.55)" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="13" letter-spacing="0">radius · 0px · dashed</text>
+<rect x="470" y="50" width="320" height="140" rx="16" fill="rgba(26, 26, 24, 0.72)" stroke="rgba(255, 255, 255, 0.22)"/>
+<text x="494" y="94" fill="#e6e4df" font-size="16" font-weight="600">GLASS SURFACE</text>
+<text x="494" y="122" fill="rgba(230, 228, 223, 0.55)" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="13" letter-spacing="0">radius-glass · 16px · rim</text>
+<rect x="900" y="96" width="300" height="48" rx="24" fill="rgba(26, 26, 24, 0.72)" stroke="rgba(255, 255, 255, 0.22)"/>
+<text x="1050" y="126" text-anchor="middle" fill="#e6e4df" font-size="15" font-weight="600">GLASS CONTROL</text>
+<text x="900" y="180" fill="#e6e4df" font-family="Fira Code,SF Mono,Menlo,monospace" font-size="13" letter-spacing="0">radius-capsule · 999px</text>
+</g>
+</svg>
