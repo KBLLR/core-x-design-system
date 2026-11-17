@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en" data-theme="kbllr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core-X Design System</title>
+<meta name="description" content="The KBLLR Core-X Design System: tokens, themes, Liquid Glass and components for a local-first AI workbench.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Page chrome only. Every colour, size and radius below is a token from tokens.css. */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--fg1);font-family:var(--font-body);font-size:14px;line-height:1.6;transition:background .2s linear,color .2s linear}
+a{color:inherit;text-decoration:underline dashed;text-underline-offset:3px}
+a:hover{text-decoration-style:solid}
+code,.mono{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em}
+code{background:var(--bg-elevated);padding:1px 4px}
+h1,h2,h3,.label,button{font-family:var(--font-heading);text-transform:uppercase;margin:0}
+h1{font-size:clamp(26px,5vw,40px);line-height:1.1;font-weight:600;letter-spacing:.08em}
+h2{font-size:20px;font-weight:600;letter-spacing:.1em}
+h3{font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--fg2)}
+p{margin:0 0 12px;max-width:66ch}
+.label{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--fg2)}
+.meta{font-family:var(--font-mono);font-size:10px;letter-spacing:.05em;color:var(--fg2)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+.top{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px dashed var(--border)}
+.top .wrap{display:flex;align-items:center;gap:12px;min-height:52px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{font-family:var(--font-heading);font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;margin-right:auto}
+.themes{display:flex;border:1px dashed var(--border)}
+.themes button{background:none;border:0;border-right:1px dashed var(--border);color:var(--fg2);font-size:11px;letter-spacing:.1em;padding:6px 10px;cursor:pointer}
+.themes button:last-child{border-right:0}
+.themes button[aria-pressed="true"]{background:var(--fg1);color:var(--bg)}
+.themes button:focus-visible,.nav a:focus-visible{outline:1px solid var(--fg1);outline-offset:2px}
+.nav{border-bottom:1px dashed var(--border);overflow-x:auto}
+.nav .wrap{display:flex;gap:18px;white-space:nowrap;padding-top:8px;padding-bottom:8px}
+.nav a{font-family:var(--font-heading);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--fg2)}
+.nav a:hover{color:var(--fg1)}
+
+section{padding:40px 0;border-bottom:1px dashed var(--border)}
+section>.wrap>h2{margin-bottom:6px}
+section>.wrap>.meta{display:block;margin-bottom:18px}
+.hero{padding:56px 0 44px}
+.hero p{font-size:16px;margin-top:16px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:24px}
+.card{border:1px dashed var(--border);padding:14px;background:var(--bg-surface);min-width:0}
+.card h3{margin-bottom:6px;color:var(--fg1)}
+.card p{margin:0;font-size:13px;line-height:1.5}
+.grid{display:grid;gap:12px}
+.g-themes{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.theme{border:1px dashed var(--border);padding:14px;background:var(--bg);color:var(--fg1);cursor:pointer;text-align:left;font:inherit;text-transform:none}
+.theme[aria-pressed="true"]{border-style:solid}
+.theme .dots{display:flex;gap:6px;margin:10px 0}
+.theme .dots i{width:22px;height:22px;border:1px dashed var(--border)}
+.theme p{font-size:12px;line-height:1.5;margin:0;color:var(--fg2)}
+
+.g-swatch{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.sw{border:1px dashed var(--border);min-width:0}
+.sw .chip{height:44px;border-bottom:1px dashed var(--border);background-image:linear-gradient(45deg,var(--border-light) 25%,transparent 25%,transparent 75%,var(--border-light) 75%),linear-gradient(45deg,var(--border-light) 25%,transparent 25%,transparent 75%,var(--border-light) 75%);background-size:10px 10px;background-position:0 0,5px 5px;position:relative}
+.sw .chip i{position:absolute;inset:0}
+.sw .body{padding:8px 10px}
+.sw .name{font-family:var(--font-mono);font-size:11px;font-weight:500}
+.sw .val{font-family:var(--font-mono);font-size:10px;color:var(--fg2);overflow-wrap:anywhere}
+.sw .use{font-size:11px;line-height:1.4;color:var(--fg2);margin-top:4px}
+.group-title{margin:22px 0 10px}
+details{border:1px dashed var(--border);margin-top:12px}
+summary{cursor:pointer;padding:10px 12px;font-family:var(--font-heading);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+details>div{padding:0 12px 12px}
+
+.type-row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:baseline;border-bottom:1px dashed var(--border);padding:12px 0}
+.type-row:last-child{border-bottom:0}
+.type-row .sample{overflow-wrap:anywhere;min-width:0}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px dashed var(--border);vertical-align:middle}
+th{font-family:var(--font-heading);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg2);font-weight:500}
+td .bar{display:block;height:10px;background:var(--fg1)}
+.scroll{overflow-x:auto}
+.shapes{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
+.shape{width:150px}
+.shape i{display:block;height:72px;border:1px dashed var(--border);background:var(--bg-surface)}
+.shape.glass i{border:0;background:var(--glass-regular);box-shadow:inset 0 0 0 1px var(--glass-rim)}
+.shadow-box{height:56px;background:var(--bg);border:1px dashed var(--border-light)}
+
+.comp{border:1px dashed var(--border);margin-bottom:14px;min-width:0}
+.comp header{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:10px 12px;border-bottom:1px dashed var(--border)}
+.comp header b{font-family:var(--font-heading);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.comp .sum{padding:10px 12px 0;font-size:13px;max-width:none}
+.comp .stage{margin:12px;position:relative;overflow:hidden;border:1px dashed var(--border-light)}
+.comp iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
+pre{margin:0;padding:14px;border:1px dashed var(--border);background:var(--bg-surface);overflow-x:auto;font-family:var(--font-mono);font-size:11px;line-height:1.6}
+.g-use{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+footer{padding:28px 0 48px}
+@media (max-width:560px){.type-row{grid-template-columns:1fr;gap:4px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}body{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Core-X · Design System</a>
+    <span class="meta" id="version">v0.1.0</span>
+    <div class="themes" role="group" aria-label="Theme" id="theme-switch"></div>
+  </div>
+</div>
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#principles">Principles</a><a href="#themes">Themes</a><a href="#colour">Colour</a><a href="#type">Type</a>
+    <a href="#space">Space &amp; shape</a><a href="#glass">Liquid Glass</a><a href="#components">Components</a><a href="#use">Use it</a>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <span class="label">KBLLR · local-first AI workbench</span>
+    <h1>Core-X Design System</h1>
+    <p>One visual language for the Core-X ecosystem: the web shell, the houses and the native macOS app. Warm monochrome, dashed lines, square corners, three typefaces. Everything on this page is drawn from <code>tokens.json</code>, the single source of values.</p>
+    <span class="meta" id="counts"></span>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <h2>Principles</h2>
+    <span class="meta">five rules · they explain most decisions</span>
+    <div class="rules">
+      <div class="card"><h3>The dashed line is the brand</h3><p>Panels, cards, badges and fields take a 1px dashed border. A solid border means focus, selection or error, and nothing else.</p></div>
+      <div class="card"><h3>Content is square</h3><p>Every content surface has a radius of zero. Only status dots, avatars and the glass layer are round.</p></div>
+      <div class="card"><h3>Colour is a signal</h3><p>The core is warm grey. Hue appears on status, tiers and ecosystem identity. No neon, no gradient fills.</p></div>
+      <div class="card"><h3>Three typefaces, strict roles</h3><p>Chakra Petch for headings and labels, always uppercase. Inter for prose. Fira Code for IDs, logs and values.</p></div>
+      <div class="card"><h3>A theme is a context</h3><p>A theme says where you are, such as the running machine or the native app. It is never switched for variety.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="themes">
+  <div class="wrap">
+    <h2>Themes</h2>
+    <span class="meta">set with <code>data-theme</code> on any element · pick one to re-theme this page</span>
+    <div class="grid g-themes" id="theme-cards"></div>
+  </div>
+</section>
+
+<section id="colour">
+  <div class="wrap">
+    <h2>Colour</h2>
+    <span class="meta" id="colour-meta"></span>
+    <div id="colour-groups"></div>
+  </div>
+</section>
+
+<section id="type">
+  <div class="wrap">
+    <h2>Type</h2>
+    <span class="meta">Chakra Petch · Inter · Fira Code</span>
+    <div id="type-rows"></div>
+  </div>
+</section>
+
+<section id="space">
+  <div class="wrap">
+    <h2>Space &amp; shape</h2>
+    <span class="meta">spacing · radius · elevation</span>
+    <h3 class="group-title">Radius: the shape rule</h3>
+    <p>Content never rounds. Glass surfaces take 16px and glass controls are capsules, so a rounded corner always means "this floats above the content".</p>
+    <div class="shapes" id="shapes"></div>
+    <h3 class="group-title">Spacing</h3>
+    <div class="scroll"><table id="spacing"></table></div>
+    <h3 class="group-title">Elevation</h3>
+    <p>Shadow steps are redeclared per theme, so depth reads the same on a light or a dark ground.</p>
+    <div class="grid g-swatch" id="shadows"></div>
+    <details><summary>Other scales: text size, tracking, leading, measure, blur, z-index</summary><div class="scroll"><table id="scales"></table></div></details>
+  </div>
+</section>
+
+<section id="glass">
+  <div class="wrap">
+    <h2>Liquid Glass</h2>
+    <span class="meta">the native layer · macOS 26 and later</span>
+    <p>Glass is the layer that floats above content: sidebar, toolbar, floating actions. Content itself never takes glass. On the web the material is approximated with backdrop blur, saturation and a rim; in SwiftUI it is Apple's own material.</p>
+    <div class="rules">
+      <div class="card"><h3>The one rounded layer</h3><p>Controls are capsules. Surfaces take 16px. Content on or under glass stays square.</p></div>
+      <div class="card"><h3>No border on glass</h3><p>The edge of glass is its rim. A dashed border and a rim never share a surface.</p></div>
+      <div class="card"><h3>Never glass on glass</h3><p>Neighbouring controls share one group, so they read as a single shape.</p></div>
+      <div class="card"><h3>Regular for text</h3><p>Use the regular material behind anything with text. Clear is only for large type or icons over media or a 3D scene.</p></div>
+      <div class="card"><h3>One tint, one prominent button</h3><p>Per view. The prominent button is the action the view exists for.</p></div>
+      <div class="card"><h3>Nothing scales</h3><p>Hover and press change the fill. Nothing bounces, grows or shimmers.</p></div>
+    </div>
+    <div class="scroll" style="margin-top:18px"><table id="glass-tokens"></table></div>
+  </div>
+</section>
+
+<section id="components">
+  <div class="wrap">
+    <h2>Components</h2>
+    <span class="meta" id="comp-meta">live previews · each loads when it scrolls into view</span>
+    <div id="comp-groups"></div>
+  </div>
+</section>
+
+<section id="use">
+  <div class="wrap">
+    <h2>Use it</h2>
+    <span class="meta">web · SwiftUI · agents</span>
+    <div class="grid g-use">
+      <div>
+        <h3 class="group-title">Web</h3>
+        <pre>&lt;link rel="stylesheet" href="tokens.css"&gt;
+&lt;html data-theme="kbllr"&gt;
+
+.panel {
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);   /* 0 */
+  padding: var(--space-5);
+}</pre>
+        <p style="margin-top:10px">Download <a href="tokens.css">tokens.css</a> or read the values from <a href="tokens.json">tokens.json</a>.</p>
+      </div>
+      <div>
+        <h3 class="group-title">SwiftUI</h3>
+        <pre>import CoreXDesign
+
+Text("Hello")
+  .foregroundStyle(CXTheme.default.color(.fg1))
+
+Button("Run") {}.cxGlassButton(prominent: true)
+panel.cxGlass()          // 16pt glass surface
+CXGlassGroup { toolbarButtons }</pre>
+        <p style="margin-top:10px">The reference is <a href="swift/CoreXGlass.swift.txt">swift/CoreXGlass.swift.txt</a>: glass on macOS 26 and later, with a material fallback from macOS 14.</p>
+      </div>
+      <div>
+        <h3 class="group-title">Agents</h3>
+        <pre>skills/core-x-native/SKILL.md</pre>
+        <p style="margin-top:10px">The <a href="skills/core-x-native/SKILL.md">core-x-native</a> skill gives a coding agent the rules for the native app: the MACOS theme, Liquid Glass, the native shell and the spatial and assistant overlays.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap meta">
+    KBLLR Core-X Design System · <span id="foot-version">v0.1.0</span> · MIT ·
+    <a href="https://github.com/KBLLR/core-x-design-system">github.com/KBLLR/core-x-design-system</a>
+  </div>
+</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const el = (tag, props = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') n.className = v; else if (k === 'style') n.style.cssText = v; else if (k in n) n[k] = v; else n.setAttribute(k, v);
+  }
+  for (const kid of kids) n.append(kid);
+  return n;
+};
+const THEME_NOTES = {
+  kbllr: ['Warm beige', 'Institutional, editorial, daylight. Launcher, documents, anything an outsider reads. The default.'],
+  vectra: ['Near-black, phosphor accent', 'The running machine: runtime, machine room, night operations, glass over a live scene.'],
+  ember: ['Oxblood, coral accent', 'Fault and warning surfaces only. It means something is wrong.'],
+  macos: ['Warm near-black', 'The native macOS app. Glass over content.'],
+};
+const COLOUR_GROUPS = [
+  ['Surfaces', (n) => n.startsWith('bg')],
+  ['Text', (n) => n.startsWith('fg') || n.startsWith('text')],
+  ['Lines and accent', (n) => n.startsWith('border') || n.startsWith('accent')],
+  ['Status and signal', (n) => n.startsWith('status') || n.startsWith('signal')],
+  ['Materials', (n) => n.startsWith('mat-') || n === 'scrim' || n === 'scanline-ink'],
+  ['Glass', (n) => n.startsWith('glass-')],
+  ['Ecosystem identity', (n) => n.startsWith('corex-')],
+];
+let tokens = null;
+let theme = 'kbllr';
+
+const valueFor = (v) => (v && typeof v === 'object') ? (v[theme] ?? v.kbllr) : v;
+const display = (v) => { const s = String(valueFor(v)); const m = s.match(/^\{(.+)\}$/); return m ? '→ ' + m[1] : s; };
+// `usage` text carries `code` marks; build nodes instead of injecting HTML.
+const prose = (text) => {
+  const span = el('span');
+  String(text || '').split('`').forEach((part, i) => span.append(i % 2 ? el('code', {}, part) : part));
+  return span;
+};
+
+function setTheme(id) {
+  theme = id;
+  document.documentElement.dataset.theme = id;
+  document.querySelectorAll('[data-theme-btn]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeBtn === id)));
+  try { localStorage.setItem('cx-theme', id); } catch (e) {}
+  if (tokens) { renderColour(); renderShadows(); }
+}
+
+function renderThemes() {
+  for (const t of tokens.color.themes) {
+    $('theme-switch').append(el('button', { type: 'button', 'data-theme-btn': t.id, onclick: () => setTheme(t.id) }, t.name));
+    const [ground, when] = THEME_NOTES[t.id] || ['', ''];
+    const card = el('button', { class: 'theme', type: 'button', 'data-theme': t.id, 'data-theme-btn': t.id, onclick: () => setTheme(t.id) },
+      el('div', { class: 'label', style: 'color:var(--fg1)' }, t.name),
+      el('div', { class: 'meta' }, ground),
+      el('div', { class: 'dots' }, ...['bg', 'bg-elevated', 'fg1', 'fg2', 'accent', 'status-green', 'status-red'].map(n => el('i', { style: `background:var(--${n})`, title: n }))),
+      el('p', {}, when));
+    $('theme-cards').append(card);
+  }
+}
+
+function renderColour() {
+  const all = tokens.color.tokens;
+  $('colour-meta').textContent = `${all.length} tokens · values shown for ${theme.toUpperCase()}`;
+  const host = $('colour-groups');
+  host.replaceChildren();
+  COLOUR_GROUPS.forEach(([title, test], gi) => {
+    const items = all.filter(t => test(t.name));
+    if (!items.length) return;
+    const grid = el('div', { class: 'grid g-swatch' }, ...items.map(t => el('div', { class: 'sw' },
+      el('div', { class: 'chip' }, el('i', { style: `background:var(--${t.name})` })),
+      el('div', { class: 'body' },
+        el('div', { class: 'name' }, t.name),
+        el('div', { class: 'val' }, display(t.value)),
+        el('div', { class: 'use' }, prose(t.usage))))));
+    if (items.length > 12) {
+      const d = el('details', {}, el('summary', {}, `${title} · ${items.length} tokens`), el('div', {}, grid));
+      d.dataset.key = title;
+      host.append(d);
+    } else {
+      host.append(el('h3', { class: 'group-title' }, `${title} · ${items.length}`), grid);
+    }
+  });
+}
+
+function renderType() {
+  for (const group of tokens.type.groups) {
+    for (const s of group.styles) {
+      const fam = tokens.type.families[group.family];
+      const sample = el('div', { class: 'sample', style: `font-family:${fam};font-size:${s.fontSize};line-height:${s.lineHeight || 1.4};font-weight:${s.fontWeight || 400};letter-spacing:${s.letterSpacing || 0};${group.family === 'heading' ? 'text-transform:uppercase' : ''}` },
+        s.sample || 'The quick brown fox · run_0042');
+      $('type-rows').append(el('div', { class: 'type-row' },
+        el('div', {}, el('div', { class: 'name mono' }, s.name), el('div', { class: 'meta' }, `${s.fontSize} · ${s.fontWeight || 400}`)),
+        el('div', { style: 'min-width:0' }, sample, el('div', { class: 'meta', style: 'margin-top:4px' }, prose(s.usage)))));
+    }
+  }
+}
+
+function row(cells, tag = 'td') { return el('tr', {}, ...cells.map(c => el(tag, {}, c))); }
+
+function renderSpace() {
+  const radius = Object.fromEntries(tokens.radius.tokens.map(t => [t.name, t]));
+  const shapes = [['radius', 'Content', ''], ['radius-glass', 'Glass surface', 'glass'], ['radius-capsule', 'Glass control', 'glass']];
+  for (const [name, label, cls] of shapes) {
+    const t = radius[name]; if (!t) continue;
+    $('shapes').append(el('div', { class: 'shape ' + cls },
+      el('i', { style: `border-radius:${name === 'radius-capsule' ? '999px;height:40px' : t.value}` }),
+      el('div', { class: 'mono', style: 'margin-top:6px' }, `${name} · ${t.value}`), el('div', { class: 'meta' }, label)));
+  }
+  $('spacing').append(row(['Token', 'Value', '', 'Use'], 'th'));
+  for (const t of tokens.spacing.tokens) {
+    $('spacing').append(row([el('span', { class: 'mono' }, t.name), el('span', { class: 'mono' }, t.value), el('span', { class: 'bar', style: `width:${t.value}` }), prose(t.usage)]));
+  }
+  $('scales').append(row(['Scale', 'Token', 'Value', 'Use'], 'th'));
+  for (const [key, label] of [['textSize', 'Text size'], ['tracking', 'Tracking'], ['leading', 'Leading'], ['measure', 'Measure'], ['blur', 'Blur'], ['zIndex', 'Z-index']]) {
+    for (const t of (tokens[key]?.tokens || [])) $('scales').append(row([label, el('span', { class: 'mono' }, t.name), el('span', { class: 'mono' }, display(t.value)), prose(t.usage)]));
+  }
+  $('glass-tokens').append(row(['Glass token', 'Value', 'Use'], 'th'));
+  for (const t of tokens.glass.tokens) $('glass-tokens').append(row([el('span', { class: 'mono' }, t.name), el('span', { class: 'mono' }, display(t.value)), prose(t.usage)]));
+}
+
+function renderShadows() {
+  $('shadows').replaceChildren(...tokens.shadow.tokens.map(t => el('div', { style: 'padding:14px 10px 6px' },
+    el('div', { class: 'shadow-box', style: `box-shadow:${valueFor(t.value)}` }),
+    el('div', { class: 'mono', style: 'margin-top:10px' }, t.name))));
+}
+
+async function renderComponents() {
+  const data = await fetch('site/components.json').then(r => r.json());
+  $('comp-meta').textContent = `${data.components.length} components · live previews · each loads when it scrolls into view`;
+  const fit = new ResizeObserver(entries => {
+    for (const e of entries) {
+      const s = e.target, w = +s.dataset.w, h = +s.dataset.h, k = Math.min(1, e.contentRect.width / w);
+      s.style.height = (h * k) + 'px';
+      const f = s.firstElementChild; if (f) f.style.transform = `scale(${k})`;
+    }
+  });
+  const lazy = new IntersectionObserver(entries => {
+    for (const e of entries) if (e.isIntersecting) {
+      const s = e.target; lazy.unobserve(s);
+      s.append(el('iframe', { src: `site/frame.html?c=${s.dataset.name}`, title: `${s.dataset.name} preview`, width: s.dataset.w, height: s.dataset.h, loading: 'lazy' }));
+      fit.observe(s);
+    }
+  }, { rootMargin: '300px' });
+  for (const g of data.groups) {
+    const items = data.components.filter(c => c.group === g);
+    if (!items.length) continue;
+    $('comp-groups').append(el('h3', { class: 'group-title' }, `${g} · ${items.length}`));
+    for (const c of items) {
+      const stage = el('div', { class: 'stage', style: `max-width:${c.width}px;height:${c.height}px` });
+      Object.assign(stage.dataset, { name: c.name, w: c.width, h: c.height });
+      $('comp-groups').append(el('article', { class: 'comp' },
+        el('header', {}, el('b', {}, c.name), el('span', { class: 'meta' }, c.subtitle)),
+        c.summary ? el('p', { class: 'sum' }, prose(c.summary.replace(/\*\*/g, ''))) : '',
+        stage));
+      lazy.observe(stage);
+    }
+  }
+}
+
+(async () => {
+  tokens = await fetch('tokens.json').then(r => r.json());
+  $('counts').textContent = `${tokens.color.tokens.length} colour tokens · ${tokens.color.themes.length} themes · ${tokens.spacing.tokens.length} spacing steps`;
+  renderThemes(); renderType(); renderSpace();
+  let saved = null; try { saved = localStorage.getItem('cx-theme'); } catch (e) {}
+  setTheme(tokens.color.themes.some(t => t.id === saved) ? saved : 'kbllr');
+  renderComponents();
+})().catch(err => { $('counts').textContent = 'Could not load tokens.json: ' + err.message; });
+</script>
+</body>
+</html>
