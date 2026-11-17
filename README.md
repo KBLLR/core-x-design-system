@@ -506,3 +506,14 @@ From Haloform. **ActionHUD** shows the session state verbatim and puts an approv
 - **Graph level colours**: Smart Campus reads them from Space.js properties (`--ui-color-range-1..4`) that its repo never defines. Here they are bound to the status scale.
 - **Alien.js** is a dependency of Smart Campus but nothing imports it; no component here comes from it.
 - **No slide template provided.**
+
+---
+
+## Site
+
+`index.html` at the repository root is the public page for this system, meant for GitHub Pages served from the root of `main`. It has no build step: it reads `tokens.json` and `tokens.css` directly, so it cannot drift from the tokens.
+
+- `site/frame.html?c=<Name>` runs one `components/<Name>/preview.html` on its own, with React from a CDN and the component bundle.
+- `site/components.json` is generated. After adding or changing a component preview, run `python3 tools/build-site-index.py` (`--check` verifies it).
+- `.nojekyll` stops Pages from processing the files.
+- To view it locally: `python3 -m http.server` in the repository root.

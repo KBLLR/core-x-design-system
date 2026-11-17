@@ -1,0 +1,280 @@
+{
+  "groups": [
+    "Foundations",
+    "Components",
+    "Data",
+    "Liquid Glass",
+    "Native shell",
+    "Spatial HUD",
+    "Assistant HUD",
+    "Materials",
+    "Ecosystem",
+    "Other"
+  ],
+  "components": [
+    {
+      "name": "Icon",
+      "group": "Foundations",
+      "width": 1000,
+      "height": 760,
+      "subtitle": "137 glyphs · 24×24 · stroke 1.5 · Lucide-compatible",
+      "summary": "One glyph from the 137-icon registry: 24×24 viewBox, stroke 1.5, no fill."
+    },
+    {
+      "name": "Loader",
+      "group": "Foundations",
+      "width": 920,
+      "height": 560,
+      "subtitle": "7 variants · indeterminate, determinate, telemetry",
+      "summary": "Seven loading indicators: `ring` · `sweep` · `cells` · `strip` · `orbit` · `bar` · `counter`."
+    },
+    {
+      "name": "Skeleton",
+      "group": "Foundations",
+      "width": 920,
+      "height": 420,
+      "subtitle": "Shimmer placeholders · text, block, card, list, metric",
+      "summary": "A shimmer placeholder for content that is coming: `text` · `block` · `card` · `list` · `metric`."
+    },
+    {
+      "name": "Badge",
+      "group": "Components",
+      "width": 700,
+      "height": 220,
+      "subtitle": "Dashed pill · tone-coded",
+      "summary": "A dashed, tone-coded pill for a short status or label."
+    },
+    {
+      "name": "Button",
+      "group": "Components",
+      "width": 700,
+      "height": 240,
+      "subtitle": "Primary · ghost · danger",
+      "summary": "The system's action control: a flat rectangle, Chakra Petch uppercase, no radius, no shadow."
+    },
+    {
+      "name": "Card",
+      "group": "Components",
+      "width": 960,
+      "height": 620,
+      "subtitle": "action · stat · media · dense × 4 material tiers",
+      "summary": "A dashed glass surface in four variants (`action` · `stat` · `media` · `dense`) and four material tiers."
+    },
+    {
+      "name": "Dropdown",
+      "group": "Components",
+      "width": 900,
+      "height": 520,
+      "subtitle": "Click-to-open menu · pill / field / ghost · multi + swatches",
+      "summary": "A click-to-open menu: `pill`, `field` or `ghost` trigger, single or multi-select."
+    },
+    {
+      "name": "EmptyState",
+      "group": "Components",
+      "width": 920,
+      "height": 470,
+      "subtitle": "empty · loading · error · denied · offline · missing",
+      "summary": "What a panel shows when it has nothing to show: `empty` · `loading` · `error` · `denied` · `offline` · `missing`."
+    },
+    {
+      "name": "Field",
+      "group": "Components",
+      "width": 700,
+      "height": 260,
+      "subtitle": "Dashed input · focus goes solid",
+      "summary": "A dashed text input that goes solid on focus."
+    },
+    {
+      "name": "Marquee",
+      "group": "Components",
+      "width": 700,
+      "height": 160,
+      "subtitle": "Log ticker · 38s linear",
+      "summary": "The log ticker: one line of mono items scrolling linearly."
+    },
+    {
+      "name": "Panel",
+      "group": "Components",
+      "width": 700,
+      "height": 300,
+      "subtitle": "Glass card · header + meta + actions",
+      "summary": "The canonical glass panel: a dashed card with a three-column header."
+    },
+    {
+      "name": "Rail",
+      "group": "Components",
+      "width": 900,
+      "height": 620,
+      "subtitle": "Icon-first nav · collapsed + expanded · flags + states",
+      "summary": "Icon-first navigation: collapsed at 64px (icon + 3-letter code) or expanded at 188px (full names)."
+    },
+    {
+      "name": "ServiceChip",
+      "group": "Components",
+      "width": 700,
+      "height": 200,
+      "subtitle": "Dot + name:port + note",
+      "summary": "One service's health on one line: dot, `name:port`, note."
+    },
+    {
+      "name": "StatusDot",
+      "group": "Components",
+      "width": 700,
+      "height": 200,
+      "subtitle": "Signal indicator · 5 tones",
+      "summary": "The live indicator: a small filled circle in a status colour."
+    },
+    {
+      "name": "FunnelBar",
+      "group": "Data",
+      "width": 700,
+      "height": 300,
+      "subtitle": "Done vs waiting · hatched outstanding",
+      "summary": "Stages of a pipeline as bars: done in solid green, outstanding work hatched."
+    },
+    {
+      "name": "ProvenanceChip",
+      "group": "Data",
+      "width": 700,
+      "height": 240,
+      "subtitle": "Where a number came from · 5 states",
+      "summary": "Says where a number came from: `fresh` · `stale` · `partial` · `failed` · `missing`."
+    },
+    {
+      "name": "Sparkline",
+      "group": "Data",
+      "width": 700,
+      "height": 260,
+      "subtitle": "Shape of a series · no axes, no scale claim",
+      "summary": "The shape of a series in one small line: no axes, no scale."
+    },
+    {
+      "name": "StatTile",
+      "group": "Data",
+      "width": 920,
+      "height": 520,
+      "subtitle": "StatTile · FunnelBar · ProvenanceChip · Sparkline",
+      "summary": "One figure with its label: tabular value, optional unit, delta and footnote."
+    },
+    {
+      "name": "GlassButton",
+      "group": "Liquid Glass",
+      "width": 700,
+      "height": 220,
+      "subtitle": "glass · prominent · disabled",
+      "summary": "A capsule button on glass, for actions that float over content."
+    },
+    {
+      "name": "GlassGroup",
+      "group": "Liquid Glass",
+      "width": 700,
+      "height": 280,
+      "subtitle": "One glass shape, several controls",
+      "summary": "One glass shape holding several controls: a segmented switch, a toolbar cluster, a zoom stack."
+    },
+    {
+      "name": "GlassSurface",
+      "group": "Liquid Glass",
+      "width": 760,
+      "height": 450,
+      "subtitle": "regular · clear · tint · interactive · three shapes",
+      "summary": "Liquid Glass: the floating layer for controls and navigation, and the one rounded layer in the system."
+    },
+    {
+      "name": "Avatar",
+      "group": "Native shell",
+      "width": 700,
+      "height": 150,
+      "subtitle": "Portrait or dashed monogram",
+      "summary": "A portrait in a circle, or a dashed monogram when no approved portrait exists."
+    },
+    {
+      "name": "ChatBubble",
+      "group": "Native shell",
+      "width": 760,
+      "height": 430,
+      "subtitle": "User · agent · stopped · handoff with quoted evidence",
+      "summary": "One envelope in a thread: a user message, an agent reply, or a handoff hop."
+    },
+    {
+      "name": "IdentityRow",
+      "group": "Native shell",
+      "width": 700,
+      "height": 300,
+      "subtitle": "Sidebar identity · head, roles, configured state",
+      "summary": "One identity in the sidebar: avatar, name, affiliation, configured state."
+    },
+    {
+      "name": "NativeShell",
+      "group": "Native shell",
+      "width": 960,
+      "height": 560,
+      "subtitle": "Sidebar, toolbar and thread on glass · MACOS theme",
+      "summary": "The macOS app shell composed from the native layer: a glass sidebar over content, a glass toolbar group, a thread of bubbles, a composer."
+    },
+    {
+      "name": "Graph",
+      "group": "Spatial HUD",
+      "width": 760,
+      "height": 400,
+      "subtitle": "Live series coloured by level · ghost · marker",
+      "summary": "A live series as one line, coloured by level, with an optional ghost and marker."
+    },
+    {
+      "name": "RadialGraph",
+      "group": "Spatial HUD",
+      "width": 760,
+      "height": 370,
+      "subtitle": "The same series around a ring",
+      "summary": "The same series as `Graph`, wrapped around a ring. For cycles: a day, a rotation, a spectrum."
+    },
+    {
+      "name": "SpatialLabel",
+      "group": "Spatial HUD",
+      "width": 760,
+      "height": 330,
+      "subtitle": "Label + leader line · rest and selected",
+      "summary": "A label pinned to a point in a 3D scene by a 1px leader line."
+    },
+    {
+      "name": "ActionHUD",
+      "group": "Assistant HUD",
+      "width": 900,
+      "height": 540,
+      "subtitle": "Status · approval gate · runtime and privacy badges",
+      "summary": "What the assistant is doing, and the approval gate in front of any tool call."
+    },
+    {
+      "name": "HologramMaterial",
+      "group": "Materials",
+      "width": 760,
+      "height": 260,
+      "subtitle": "Fresnel rim + travelling scanlines · additive",
+      "summary": "A Fresnel rim with travelling scanlines, drawn additively. For rooms, volumes and avatars that are present but not solid."
+    },
+    {
+      "name": "RoomNodeMaterial",
+      "group": "Materials",
+      "width": 760,
+      "height": 290,
+      "subtitle": "Height gradient + occupancy glow",
+      "summary": "A room block: a vertical gradient that glows with occupancy."
+    },
+    {
+      "name": "EntityLoader",
+      "group": "Ecosystem",
+      "width": 1000,
+      "height": 800,
+      "subtitle": "23 entities · one motion metaphor each · driven by canonical accent",
+      "summary": "A loading animation built from an ecosystem entity's own motion metaphor, in its own accent."
+    },
+    {
+      "name": "Cover",
+      "group": "Other",
+      "width": 700,
+      "height": 288,
+      "subtitle": "",
+      "summary": ""
+    }
+  ]
+}
