@@ -5,6 +5,9 @@ A design system for **KBLLR Core-X** — a local-first multimodal AI workbench. 
 > "Warm beige, dashed borders, Chakra Petch + Inter. Minimal, brutalist, material-focused."
 > — header comment in the source `core.css`
 
+
+> **What this repository holds (checked 22 Nov 2026).** This guide describes the full system as designed. The repository publishes its source of truth for consumers: `tokens.json`, `tokens.css` (generated from it), `tokens/haloform-corex.css`, the component bundle and contracts in `components/` (`bundle.js`, `bundle.css`, `index.d.ts`, plus each component's `README.md` and preview), `swift/CoreXGlass.swift.txt`, the `core-x-native` skill, and the site (`index.html`, `site/`). Files the sections below name and that are not in that list (for example `styles.css`, `tokens/themes.css`, `playground.html`, `ui_kits/`, `assets/`) belong to the original design workspace and are not published here; their rules and values are carried by `tokens.json` and the bundle. The **File index** at the end lists what is actually here.
+
 ---
 
 ## What is Core-X?
@@ -359,18 +362,13 @@ Each folder-cover subject is drawn from the matching glyph in the icon registry 
 
 ## Agents & skills
 
-The system is packaged so an agent can apply it without a person in the loop. `agents.html` is the guide.
+One skill ships here: [`skills/core-x-native/SKILL.md`](skills/core-x-native/SKILL.md), the rules for the native macOS app and its spatial and assistant overlays. Core-X installs it as the `core-x-native` skill. **When a rule changes, update the skill in the same edit.** The skill is the copy agents read.
 
-- `AGENTS.md`: the twelve rules and a file map. Read by every agent tool.
-- `SKILL.md`: the entry skill. Routes a task to the sub-skills it needs.
-- `skills/core-x-{foundations,components,panels,ecosystem,motion,content,imagery,review,native}/SKILL.md`: one topic each, complete.
-- `agents/core-x-designer.md`: the agent definition (a Claude Code subagent; its body works as a system prompt anywhere).
+There is no `AGENTS.md`, entry `SKILL.md`, set of topic sub-skills or subagent definition in this repository.
 
-An agent reads the rules, routes the task, loads two to four sub-skills, builds from `templates/` and the components, then runs the `core-x-review` grep audit and checklist. **When a rule changes, update the matching sub-skill in the same edit.** The skills are the copy that agents read.
+### Starting a new app
 
-### Starter project
-
-`starter/core-x-app/` is a downloadable boilerplate for new apps. It vendors the system in `ds/` (styles, bundle, tokens, assets, and every contract merged into `ds/contracts/components.d.ts`), ships `AGENTS.md`, `CLAUDE.md`, `skills/` and `agents/` with paths adjusted to its layout, and runs a working shell (rail, glass header, hash routing, two example modules) driven by `app.config.js`. `scripts/setup.sh` links the skills into `.claude/`; `scripts/update-ds.sh <path>` refreshes `ds/` from this project. **After changing tokens or components here, refresh the starter's `ds/` too**, or new apps begin from an old snapshot. The starter ships the icon and entity registries as JSON rather than `.js`: the bundle already carries them at runtime, and `.js` copies would collide with the originals in this project's compiler.
+There is no starter project here. Core-X creates new houses with its `house-create-web` and `house-create-native` skills (`core-x/scripts/house-create.py` in the Core-X repo). They copy `tokens.json`, `tokens.css`, the component READMEs they use and, for native apps, `swift/CoreXGlass.swift.txt` into the new app's `design/` folder and record each file's git blob hash in `design/SOURCE.txt`. **After changing tokens or the Swift reference here, re-pin the apps that copy them**: a pinned copy never updates itself.
 
 ---
 
@@ -415,15 +413,9 @@ From Haloform. **ActionHUD** shows the session state verbatim and puts an approv
 
 ---
 
-## Playground
+## Playground and templates
 
-`playground.html` renders every component live, with a beige/dark toggle and a collapsed/expanded rail toggle. It is the fastest way to check a change against the whole system.
-
----
-
-## Templates
-
-`templates/operator-console/` — the Core-X shell: fixed rail, glass header with live clock and marquee, stat strip, two-panel grid. Copy the folder and edit the `base` line in `ds-base.js`.
+The component previews live with each component (`components/<Name>/`) and on the published site (`index.html`, `site/`). There is no `playground.html` and no `templates/` folder in this repository.
 
 ---
 
@@ -431,44 +423,26 @@ From Haloform. **ActionHUD** shows the session state verbatim and puts an approv
 
 ```
 .
-├── README.md                       ← you are here
-├── SKILL.md                        ← agent skill manifest (cross-compatible with Claude Code)
-├── styles.css                      ← THE ENTRY POINT. Consuming projects link this one file.
-│                                     Imports every layer below, each ?v= cache-busted.
-├── tokens.json                     ← the tokens the Design System page shows and edits
-├── tokens.css                      ← generated from tokens.json; loads before components/bundle.css
-├── colors_and_type.css             ← base palette + type scale + semantic classes
+├── README.md                       ← overview and quick start
+├── GUIDE.md                        ← this guide
+├── LICENSE
+├── design-system.json              ← system manifest
+├── tokens.json                     ← source of truth for every token (4 themes)
+├── tokens.css                      ← generated from tokens.json
 ├── tokens/
-│   ├── themes.css                  ← KBLLR / VECTRA / EMBER + atmosphere utilities
-│   ├── materials.css               ← 6 glass tiers, 6 shadows, edges, z-layers
-│   ├── motion.css                  ← durations, easings, 12 primitives, entity keyframes
-│   ├── text.css                    ← measure, flow, labels, numerals, tables, columns
-│   ├── ecosystem.css               ← 23 entity accents + data-entity scopes
-│   ├── panels.css                  ← cue tokens: mode / category / presence / status
 │   └── haloform-corex.css          ← maps Haloform --hf-* properties onto these tokens
-├── swift/CoreXGlass.swift.txt          ← SwiftUI reference: glass modifier, group, button style (uncompiled)
-├── branding.html                   ← themes, canonical spectrum, both tiers, logos, rules
-├── panels.html                     ← panel taxonomy: 5 categories × 10 groups × 6 modes
-├── playground.html                 ← every component live, beige/dark + rail toggles
-├── thumbnail.html                  ← homepage tile
-├── components/                     ← 19 components, each <Name>/{Name.jsx,Name.d.ts,preview.html,README.md}
+├── components/                     ← each <Name>/ holds README.md and preview.html; most also .jsx/.d.ts
 │   ├── bundle.js  bundle.css  index.d.ts           ← the bundle, its stylesheet, every contract merged
-│   ├── Button/ Badge/ Field/ Dropdown/ Icon/          ← primitives
-│   ├── Panel/ Card/ Rail/                              ← surfaces
-│   ├── Loader/ EntityLoader/ Skeleton/ EmptyState/ Marquee/  ← feedback
-│   ├── StatTile/ FunnelBar/ ProvenanceChip/ Sparkline/ ← data
-│   └── StatusDot/ ServiceChip/                         ← status
-├── assets/
-│   ├── icons/icons.js              ← 137-glyph registry, Lucide-compatible
-│   ├── ecosystem/entities.js       ← 23 entities: accents, tiers, families, metaphors
-│   ├── logos/                      ← 5 SVGs + favicon notes
-│   └── patterns/                   ← background grid texture
-├── preview/                        ← foundation cards (materials, motion, text)
-├── templates/
-│   └── operator-console/           ← rail + glass header + panel grid, via ds-base.js
-└── ui_kits/
-    ├── launcher/                   ← login gate + launcher home
-    └── runtime/                    ← runtime shell + orchestrator/chat/board modes
+│   └── ActionHUD/ Avatar/ Badge/ Button/ Card/ ChatBubble/ Cover/ Dropdown/ EmptyState/ EntityLoader/
+│       Field/ FunnelBar/ GlassButton/ GlassGroup/ GlassSurface/ Graph/ HologramMaterial/ Icon/
+│       IdentityRow/ Loader/ Marquee/ NativeShell/ Panel/ ProvenanceChip/ RadialGraph/ Rail/
+│       RoomNodeMaterial/ ServiceChip/ Skeleton/ Sparkline/ SpatialLabel/ StatTile/ StatusDot/
+├── swift/CoreXGlass.swift.txt      ← SwiftUI reference: glass modifier, group, button style
+├── skills/core-x-native/SKILL.md   ← the native rules, installed in Core-X as core-x-native
+├── index.html  site/               ← the published site
+├── docs/readme/                    ← README artwork
+├── tools/                          ← build scripts for the site index and README art
+└── archived/                       ← earlier component versions
 ```
 
 ---
@@ -501,7 +475,7 @@ From Haloform. **ActionHUD** shows the session state verbatim and puts an approv
   Inter. The shipped families are left in place pending a deliberate call.
 - **Panel taxonomy §06 "Collaborative archetypes"** is not built: its source body is
   JS-populated and was empty in the supplied markup, so there is no original text to lift.
-- **Liquid Glass is a design intention.** The macOS app targets macOS 14 and calls no glass API yet. The web classes are an approximation, and `swift/CoreXGlass.swift.txt` has not been compiled.
+- **Liquid Glass is a design intention.** The web classes are an approximation. `swift/CoreXGlass.swift.txt`, copied unchanged, compiles without warnings with Swift 6.4 on the macOS 27 SDK (Core-X native house fixture, 22 Nov 2026), so the macOS 26 glass path builds; it has not yet been reviewed on screen. The Swift package that generates from these tokens is `CoreXDesign` (in the Core-X Chat app), not `CoreXDesignSystem`.
 - **MACOS accent, undecided**: the Swift source defines no accent, so the theme inherits KBLLR's `#ff7a3d`.
 - **Graph level colours**: Smart Campus reads them from Space.js properties (`--ui-color-range-1..4`) that its repo never defines. Here they are bound to the status scale.
 - **Alien.js** is a dependency of Smart Campus but nothing imports it; no component here comes from it.
